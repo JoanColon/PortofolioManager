@@ -3,23 +3,22 @@
 // ----------------------------------------------------------------------------
 <template>
   <div class="dividends">
+    <!-- Chart of total dividend per year -->
     <b-row>
-      <BaseBarChart v-if='!isLoading' :barChartData='dividendYear'/>
+      <BaseBarChart 
+        v-if='!isLoading' 
+        :barChartData='dividendYear'  
+      />
     </b-row>
+
+    <!-- Table of total diviend per company -->
     <b-row>
-      <table class="table table-striped caption-top">
-          <caption>Dividends received per company</caption>
-          <thead>
-            <th>Ticker</th>
-            <th>Amount (€)</th>
-          </thead>
-          <tbody>
-            <tr v-for='item in dividendCompany' v-bind:key="item.id">
-              <td>{{item.Tickers}}</td>
-              <td>{{item.Amount_euro}}</td>
-            </tr>
-          </tbody>
-        </table>
+      <BaseTable
+        id="DividendTable" 
+        v-if='!isLoading' 
+        :MyTableItems='dividendCompany' 
+        :MyTableFields='dividendCompanyFields'
+      />
     </b-row>
   </div>
 </template>
@@ -32,20 +31,31 @@ import axios from 'axios';
 
 // import components
 import BaseBarChart from '@/components/BaseBarChart.vue' //@ redirects to src folder
+import BaseTable from '@/components/BaseTable.vue' 
 
 export default {
   name: 'ViewDividends',
   components: {
     BaseBarChart,
+    BaseTable
   },
   data(){
-  return{
-    dividendCompany:[],
-    dividendYear:[],
-    isLoading: false
-  };
+    return{
+      // data for the bar chart
+      dividendYear:[], //dividends received per year
+    
+      // data for the dividend table
+      dividendCompany: [], //dividend received by company
+      dividendCompanyFields:[
+        {key:'Tickers', sortable: true },
+        {key:'Amount_euro', sortable: true, label:'Amount (€)' },
+        ],
+        
+      isLoading: false, //to prevent that the chart and the table are rendered before receiving the data
+    };
   },
   methods:{
+    //call to flack to get dividend data (per year and per company) 
     getPortofolioDividendData(){
       this.isLoading = true
       const path = 'http://localhost:5000/historicDividends'; //path to flask route  
@@ -62,7 +72,7 @@ export default {
   },
   mounted(){
     this.getPortofolioDividendData(); //calls the function getPortofolioData when mounting the view
-  }
+  },
 }
 </script>
 
@@ -70,14 +80,8 @@ export default {
 // ------------------------------ STYLES --------------------------------------
 // ----------------------------------------------------------------------------
 <style scoped>
-table{
-  margin-top: 10px;
-  margin-left: 20px;
-  width: 70%;
+#DividendTable{
+    margin-left: 25px;
+    width:50%;
 }
-td, th{
-  text-align: center;
-}
-
-
 </style>
