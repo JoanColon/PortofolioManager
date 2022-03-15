@@ -1,0 +1,3 @@
+# see https://cs50.stackexchange.com/questions/32768/instance-of-scoped-session-has-no-commit-member
+# to avoid pylint error in app.py when working with sqlalchemy
+ignored-classes=SQLObject,Registrant,scoped_session
