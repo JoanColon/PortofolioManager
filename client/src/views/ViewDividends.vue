@@ -1,31 +1,37 @@
-// ----------------------------------------------------------------------------
-// ------------------------ TEMPLATES -----------------------------------------
-// ----------------------------------------------------------------------------
+<!------------------------------------------------------------------------>
+<!------------------------- Templates ------------------------------------>
+<!------------------------------------------------------------------------>
 <template>
   <div class="dividends">
-    <!-- Chart of total dividend per year -->
-    <b-row>
-      <BaseBarChart 
-        v-if='!isLoading' 
-        :barChartData='dividendYear'  
-      />
-    </b-row>
-
-    <!-- Table of total diviend per company -->
-    <b-row>
-      <BaseTable
-        id="DividendTable" 
-        v-if='!isLoading' 
-        :MyTableItems='dividendCompany' 
-        :MyTableFields='dividendCompanyFields'
-      />
-    </b-row>
+      <h3 class="m-4">Total dividends received: {{totalReceivedDividends}} €</h3>
+      <b-row>
+        <b-col>
+        <!-- Chart of total dividend per year -->
+          <BaseBarChart 
+          v-if='!isLoading' 
+          :barChartData='dividendYear' 
+          :MyChartTitle='MyChartTitle'
+          :yaxisTitle='yaxisTitle'
+          :xaxisTitle='xaxisTitle'  
+        />
+        </b-col>
+        <b-col>
+        <!-- Table of total diviend per company -->
+          <BaseTable
+          id="DividendTable" 
+          v-if='!isLoading' 
+          :MyTableItems='dividendCompany' 
+          :MyTableFields='dividendCompanyFields'
+          :RowPerPage='RowsPerPage' 
+        />
+        </b-col>
+      </b-row>
   </div>
 </template>
 
-// ----------------------------------------------------------------------------
-// ------------------------------ SCRIPT --------------------------------------
-// ----------------------------------------------------------------------------
+<!------------------------------------------------------------------------>
+<!--------------------------- Scripts ------------------------------------>
+<!------------------------------------------------------------------------>
 <script>
 import axios from 'axios';
 
@@ -41,8 +47,14 @@ export default {
   },
   data(){
     return{
+      // data for total received dividends 
+      totalReceivedDividends:'',
+
       // data for the bar chart
       dividendYear:[], //dividends received per year
+      MyChartTitle:'Dividends received per year',
+      xaxisTitle:'',
+      yaxisTitle:'Gross €/year',
     
       // data for the dividend table
       dividendCompany: [], //dividend received by company
@@ -50,8 +62,10 @@ export default {
         {key:'Tickers', sortable: true },
         {key:'Amount_euro', sortable: true, label:'Amount (€)' },
         ],
-        
-      isLoading: false, //to prevent that the chart and the table are rendered before receiving the data
+      RowsPerPage:10,
+
+      //to prevent that the chart and the table are rendered before receiving the data
+      isLoading: false, 
     };
   },
   methods:{
@@ -76,12 +90,13 @@ export default {
 }
 </script>
 
-// ----------------------------------------------------------------------------
-// ------------------------------ STYLES --------------------------------------
-// ----------------------------------------------------------------------------
+<!------------------------------------------------------------------------>
+<!---------------------------- Styles ------------------------------------>
+<!------------------------------------------------------------------------>
 <style scoped>
 #DividendTable{
-    margin-left: 25px;
-    width:50%;
+    width:75%;
+    margin-left:auto;
+    margin-right: auto;
 }
 </style>
