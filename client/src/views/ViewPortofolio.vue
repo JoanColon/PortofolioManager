@@ -52,7 +52,6 @@
       <BaseTable
             id="PortofolioTable"
             v-if='!isLoading'
-            :small="small" 
             :MyTableItems='portofolioData'
             :MyTableFields='portofolioFields'
             :RowPerPage=100
@@ -75,7 +74,7 @@ import BaseTable from '@/components/BaseTable.vue'
 export default {
   name: 'ViewPortofolio',
   components: {
-    BaseTable
+    BaseTable,
   },
   data(){
     return{
@@ -124,7 +123,11 @@ export default {
     // sends data to flask, in flask it will store the data in database will return updated data 
     onSubmit(event) {
         event.preventDefault()
-        alert(JSON.stringify(this.EnterAction))
+        // alert(JSON.stringify(this.EnterAction))
+        const path='http://localhost:5000/postNewOrder'
+        let postData=this.EnterAction
+        axios.post(path, postData)
+        .then((result)=>{alert(JSON.stringify(result.data))})
     },
   },
   mounted(){

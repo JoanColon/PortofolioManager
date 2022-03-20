@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
@@ -32,16 +32,7 @@ CORS(app, resources={r'/*': {'origins': '*'}})
 # ----------------------------------- ROUTES --------------------------------------
 # ---------------------------------------------------------------------------------
 
-#example route
-@app.route('/ping', methods=['GET'])
-def ping_pong():
-    a= [
-        {"Ticker":'APPL', "Price":143},
-        {"Ticker":'MSFT', "Price":220}
-    ]
-    return jsonify(a)
-
-# get current portofolio data, ticker, current price, market value, etc...
+# get current portofolio data, ticker, current price, market value, etc. SEND TO "ViewPortofolio.vue"
 @app.route('/getPortofolio', methods=['GET'])
 def getPortofolio():
 
@@ -49,12 +40,23 @@ def getPortofolio():
 
     return jsonify(portofolio)
 
+# get historic dividend data. SEND TO "ViewDividends.vue"
 @app.route('/historicDividends',methods=['GET'])
 def getHisotoricDividends():
 
     historicDividends=getPortofolioDividends() #funciton imported from portofolioDivindeds.py
 
     return jsonify(historicDividends)
+
+#get data when entering a new order. GET DATA FROM "ViewPortofolio.vue"
+@app.route('/postNewOrder', methods=['GET','POST'])
+def getVueData():
+
+    postData=request.get_json(force=True)
+    print(postData)
+    
+    return jsonify('data uploaded to database')
+
 
 if __name__ == '__main__':
     app.run()
