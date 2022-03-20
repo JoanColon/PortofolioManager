@@ -13,7 +13,7 @@
 
         <b-table 
             id="my-table"
-            striped hover small 
+            striped hover 
             class='text-center'  
             :items="items"
             :filter="filter" 
@@ -66,4 +66,7 @@
 <!------------------------------------------------------------------------>
 <style scoped>
 
+#filterInput{
+  width: 200px;
+}
 </style>

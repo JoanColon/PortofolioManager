@@ -22,7 +22,7 @@
           v-if='!isLoading' 
           :MyTableItems='dividendCompany' 
           :MyTableFields='dividendCompanyFields'
-          :RowPerPage='RowsPerPage' 
+          :RowPerPage=10
         />
         </b-col>
       </b-row>
@@ -62,7 +62,6 @@ export default {
         {key:'Tickers', sortable: true },
         {key:'Amount_euro', sortable: true, label:'Amount (€)' },
         ],
-      RowsPerPage:10,
 
       //to prevent that the chart and the table are rendered before receiving the data
       isLoading: false, 
