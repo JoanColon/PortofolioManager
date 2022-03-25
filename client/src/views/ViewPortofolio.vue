@@ -120,14 +120,14 @@ export default {
     },
 
     // function tu submit the "Enter New Order" form when buuton is clicke (@submit="onSubmit")
-    // sends data to flask, in flask it will store the data in database will return updated data 
+    // sends data to flask, in flask it will store the data in database will return updated data and a text response
     onSubmit(event) {
         event.preventDefault()
         // alert(JSON.stringify(this.EnterAction))
         const path='http://localhost:5000/postNewOrder'
         let postData=this.EnterAction
         axios.post(path, postData)
-        .then((result)=>{alert(JSON.stringify(result.data))})
+        .then((res)=>{alert(JSON.stringify(res.data))})
     },
   },
   mounted(){

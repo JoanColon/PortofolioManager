@@ -1,16 +1,20 @@
 <template>
   <div class="home">
 
+    <FormNewCompany/>
+  
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+// import components
+import FormNewCompany from '@/components/FormNewCompany.vue' //@ redirects to src folder
 
 
 export default {
   name: 'HomeView',
   components: {
+    FormNewCompany
  
   }
 }
