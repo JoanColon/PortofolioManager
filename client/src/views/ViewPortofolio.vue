@@ -2,62 +2,31 @@
 <!------------------------- Templates ------------------------------------>
 <!------------------------------------------------------------------------>
 <template>
-  <div class="stockanalysis">
-    <b-row class="mb-3">
-      <h3>The total value of the portofolio is: {{portofolioValue}} €</h3>
-      <h3>The total amount of anual expected divideds is: {{dividenAmount}} €/year</h3>
-    </b-row>
+<div class="stockanalysis">
+  <b-row class="mb-3">
+    <h3>The total value of the portofolio is: {{portofolioValue}} €</h3>
+    <h3>The total amount of anual expected divideds is: {{dividenAmount}} €/year</h3>
+  </b-row>
 
-    <!-- Enter new order form -->
-    <b-row class="mb-3">
-      <b-button v-b-toggle.collapse-1 variant="outline-primary" id="btnNewOrder">Enter a new order</b-button>
-      <b-collapse id="collapse-1" class="mt-2">
-        <b-form id="OrderForm" @submit="onSubmit">
-            <b-form-group id="input-group-1" label="" label-for="select-1" class="form-item">
-              <b-form-select 
-                id='select-1' 
-                :options="['Buy', 'Sell']" 
-                required 
-                v-model='EnterAction.ActionType'>
-              </b-form-select>
-            </b-form-group>
+  <b-row> 
+    <b-tabs content-class="mt-3">
+      <b-tab title="Portofolio Table">
+        <!-- Table of current portofolio -->
+        <BaseTable
+          id="PortofolioTable"
+          v-if='!isLoading'
+          :MyTableItems='portofolioData'
+          :MyTableFields='portofolioFields'
+          :RowPerPage=100
+        />
+      </b-tab>
 
-            <b-form-group id="input-group-2" label="" label-for="input-2" class="form-item">
-              <b-form-input 
-                id="input-2" 
-                placeholder="Enter ticker" 
-                required
-                v-model='EnterAction.Ticker'>
-              </b-form-input>
-            </b-form-group>
-
-            <b-form-group id="input-group-3" label="" label-for="input-3" class="form-item">
-              <b-form-input 
-                id="input-3" 
-                placeholder="Enter Price" 
-                required
-                v-model='EnterAction.Price'>
-              </b-form-input>
-            </b-form-group>
-
-            <b-form-gorup id="submit-group-1" class="form-item">
-              <b-button id="submit-1" type="submit" variant="primary">Enter Action</b-button>
-            </b-form-gorup>
-        </b-form>
-      </b-collapse>
-    </b-row>
-
-    <!-- Table of current portofolio -->
-    <b-row> 
-      <BaseTable
-            id="PortofolioTable"
-            v-if='!isLoading'
-            :MyTableItems='portofolioData'
-            :MyTableFields='portofolioFields'
-            :RowPerPage=100
-          />
-    </b-row>
-  </div>
+      <b-tab title="Portofolio Charts">
+        <!-- Charts of current portofolio -->
+      </b-tab>
+    </b-tabs>
+  </b-row>
+</div>
 </template>
 
 <!------------------------------------------------------------------------>
@@ -68,7 +37,7 @@
 import axios from 'axios'; //needed to call flask
 
 // import components
-import BaseTable from '@/components/BaseTable.vue' 
+import BaseTable from '@/components/BaseTable.vue'
 
 
 export default {

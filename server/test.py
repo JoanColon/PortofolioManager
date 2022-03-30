@@ -1,5 +1,4 @@
-from cgitb import reset
-from portofolio import getInvestingData
+import os
 
-result=getInvestingData()
-print(result)
+cwd=os.getcwd()
+print(cwd)

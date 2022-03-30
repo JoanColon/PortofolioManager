@@ -4,7 +4,8 @@ import pandas as pd
 def getPortofolioDividends():
     # Get data
     cwd=os.getcwd()
-    path=os.path.join(cwd,'data','AllDividends.csv')
+    path=os.path.join(cwd,'server','data','AllDividends.csv')
+    print(path)
     df=pd.read_csv(path)
 
     # Dataframe with dividends by Ticker
@@ -25,5 +26,7 @@ def getPortofolioDividends():
     DividendYear=dfDate.to_dict(orient='list')
 
     historicDividends=[DividendTicker, DividendYear]
+
+    print('hello')
 
     return historicDividends

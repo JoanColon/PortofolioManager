@@ -8,8 +8,9 @@ Vue.use(VueRouter)
 // ------------------------------------------------------------------
 import HomeView from '../views/HomeView.vue'
 import ViewPortofolio from '../views/ViewPortofolio.vue'
-import ViewDividends from '../views/ViewDividends.vue'
+import ViewHistoricPerformance from '../views/ViewHistoricPerformance.vue'
 import ViewStockAnalysis from '../views/ViewStockAnalysis.vue'
+import ViewDataManagement from '../views/ViewDataManagement.vue'
 import AboutView from '../views/AboutView.vue'
 
 // ------------------------------------------------------------------
@@ -27,14 +28,19 @@ const routes = [
     component: ViewPortofolio
   },
   {
-    path: '/dividends',
-    name: 'dividends',
-    component: ViewDividends
+    path: '/historicperformance',
+    name: 'historicperformance',
+    component: ViewHistoricPerformance
   },
   {
     path: '/stockanalysis',
     name: 'sotckanalysis',
     component: ViewStockAnalysis
+  },
+  {
+    path: '/datamanagement',
+    name: 'datamanagement',
+    component: ViewDataManagement
   },
   {
     path: '/about',

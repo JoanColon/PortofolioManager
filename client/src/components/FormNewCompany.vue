@@ -3,6 +3,8 @@
 <!------------------------------------------------------------------------>
 <template>
 <div>
+<b-button v-b-toggle.FormNewCompany class="btn_toggle"><b-icon icon="arrow-down-circle-fill"></b-icon> New Company</b-button>
+<b-collapse id="FormNewCompany" class="mt-2">
   <b-form inline id="NewCompanyForm" @submit="onSubmit">
     <div class="group">
         <label class="sr-only" for="inline-form-input-name">Name:</label>
@@ -16,11 +18,11 @@
     </div>
 
     <div class="group">
-        <label class="sr-only" for="inline-form-input-MyTicker">My Ticker:</label>
+        <label class="sr-only" for="inline-form-input-MyTicker">Ticker:</label>
         <b-form-input
         id="inline-form-input-MyTicker"
         class="form_input"
-        placeholder="My Ticker"
+        placeholder="Ticker to display"
         required
         v-model='AddNewCompany.MyTicker'
         ></b-form-input>
@@ -42,7 +44,7 @@
         <b-form-input
         id="inline-form-input-Currency"
         class="form_input"
-        placeholder="eg., EUR, USD, GBP"
+        placeholder="e.g., EUR, USD, GBP"
         required
         v-model='AddNewCompany.Currency'
         ></b-form-input>
@@ -71,7 +73,7 @@
     </div>
 
     <div class="group">
-        <label class="sr-only" for="inline-form-input-SupeSector">SupeSector:</label>
+        <label class="sr-only" for="inline-form-input-SupeSector">Super Sector:</label>
         <b-form-select
         id="inline-form-select-SuperSector"
         :options="['Broad Market', 'Cyclical', 'Defensive', 'Sensitive'  ]" 
@@ -81,8 +83,10 @@
         ></b-form-select>
     </div>
 
-    <b-button id="submit-1" type="submit" variant="primary">Add new Company</b-button>
+    <b-button id="submit-1" type="submit" variant="primary">Add new company</b-button>
   </b-form>
+</b-collapse>
+<hr>
 </div>
 </template>
 
@@ -111,19 +115,16 @@ export default {
         }
     },
     methods:{
-    // function tu submit the "Enter New Order" form when buuton is clicke (@submit="onSubmit")
-    // sends data to flask, in flask it will store the data in database will return updated data and a text response
-    onSubmit(event) {
-        event.preventDefault()
-        // alert(JSON.stringify(this.AddNewCompany))
-        const path='http://localhost:5000/addNewCompany'
-        let postData=this.AddNewCompany
-        axios.post(path, postData)
-        .then((res)=>{alert(JSON.stringify(res.data))})
-    },
-
-
-
+        // function tu submit the "NewCompanyForm" when button is clicked (@submit="onSubmit")
+        // sends data to flask, in flask it will store the data in database will return updated data and a text response
+        onSubmit(event) {
+            event.preventDefault()
+            // alert(JSON.stringify(this.AddNewCompany))
+            const path='http://localhost:5000/addNewCompany'
+            let postData=this.AddNewCompany
+            axios.post(path, postData)
+            .then((res)=>{alert(JSON.stringify(res.data))})
+        },
     }
 }
 </script>
@@ -132,6 +133,12 @@ export default {
 <!---------------------------- Styles ------------------------------------>
 <!------------------------------------------------------------------------>
 <style scoped>
+.btn_toggle{
+    background-color:white;
+    border:1px solid white;
+    color:black
+}
+
 .group{
    margin-top: 20px;
    margin-left: 20px;

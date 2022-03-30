@@ -25,8 +25,8 @@ db = SQLAlchemy(app)
 # ---------------------------------------------------------------------------------
 # ----------------------------------- MODELS --------------------------------------
 # ---------------------------------------------------------------------------------
-class Stock_General_Info_db(db.Model):
-    __tablename__ = 'stock_general_info_db'
+class Company_Info(db.Model):
+    __tablename__ = 'company_info'
 
     id = db.Column(db.Integer, primary_key=True)
     Name = db.Column(db.String(100), unique=True, nullable=False)
@@ -37,8 +37,21 @@ class Stock_General_Info_db(db.Model):
     Sector = db.Column(db.String(10), unique=True, nullable=False)
     SuperSector = db.Column(db.String(10), unique=True, nullable=False)
 
+class Order(db.Model):
+    __tablename__ = 'order'
+
+    id = db.Column(db.Integer, primary_key=True)
+    OrderType = db.Column(db.String(5), unique=False, nullable=False)
+    OrderDate = db.Column(db.String(50))
+    MyTicker = db.Column(db.String(10), unique=False, nullable=False)
+    Amount = db.Column(db.Float, unique=False, nullable=False)
+    Price = db.Column(db.Float, unique=False, nullable=False)
+    PriceBaseCurrency = db.Column(db.Float, unique=False, nullable=False)
+    Total = db.Column(db.Float, unique=False, nullable=False)
+    TotalBaseCurrency = db.Column(db.Float, unique=False, nullable=False)
+
 # only run db.create_all() if ddbb is not yet created
-# db.create_all()
+db.create_all()
 
 # ---------------------------------------------------------------------------------
 # ----------------------------------- ROUTES --------------------------------------
@@ -58,20 +71,12 @@ def getHisotoricDividends():
 
     return jsonify(historicDividends)
 
-# Add NEW ORDER. Get data from form and adds to the database. GET DATA FROM "ViewPortofolio.vue"
-@app.route('/postNewOrder', methods=['GET','POST'])
-def getVueData():
-    postData=request.get_json(force=True)
-    print(postData)
-    
-    return jsonify('data uploaded to database')
-
 # Add NEW COMPANY. GET DATA FROM "FormNewCompnay.vue"and adds it to the database (table Stock_General_Info_db). 
 @app.route('/addNewCompany', methods=['GET', 'POST'])
 def AddNewCompany():
     postData=request.get_json(force=True)
 
-    NewCompany=Stock_General_Info_db(
+    NewCompany=Company_Info(
         Name=postData['CompanyName'], 
         MyTicker=postData['MyTicker'], 
         SearchTicker=postData['API_Ticker'],
@@ -83,10 +88,41 @@ def AddNewCompany():
     
     db.session.add(NewCompany)
     db.session.commit()
-
-    print(postData['CompanyName'])
     
     return jsonify('data uploaded to database')
+
+# Add NEW ORDER. GET DATA FROM "ViewPortofolio.vue" and adds to the database.
+@app.route('/postNewOrder', methods=['GET','POST'])
+def getVueData():
+    postData=request.get_json(force=True)
+
+    NewOrder=Order(
+       OrderType=postData['OrderType'],
+       OrderDate=postData['Date'],
+       Ticker=postData['Ticker'],
+       Amount=postData['Amount'],
+       Price=postData['Price'],
+       PriceBaseCurrency=100,
+       Total=float(postData['Amount'])*float(postData['Price']),
+       TotalBaseCurrency=float(postData['Amount'])*100,
+    )
+
+    db.session.add(NewOrder)
+    db.session.commit()
+    
+    return jsonify('data uploaded to database')
+
+# get ALL COMPANY TICKERS FROM ddbb
+@app.route('/getTickers', methods=['GET', 'POST'])
+def getTickers():
+
+    CompanyList=Company_Info.query.all()
+
+    tickerList=[]
+    for company in CompanyList:
+        tickerList.append(company.MyTicker)
+
+    return jsonify(tickerList)
 
 # ---------------------------------------------------------------------------------
 # ----------------------------------- APP.RUN -------------------------------------

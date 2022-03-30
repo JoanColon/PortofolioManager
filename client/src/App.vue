@@ -10,8 +10,9 @@
       <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/portofolio">Portofolio</router-link> |
-      <router-link to="/dividends">Dividends</router-link> |
+      <router-link to="/historicperformance">Historic Performance</router-link> |
       <router-link to="/stockanalysis">Stock Analysis</router-link> |
+      <router-link to="/datamanagement">Data Management</router-link> |
       <router-link to="/about">About</router-link>
     </nav>
     <router-view/>

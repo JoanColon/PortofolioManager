@@ -2,38 +2,37 @@
 <!------------------------- Templates ------------------------------------>
 <!------------------------------------------------------------------------>
 <template>
-  <div>
-    <b-row>
-        <b-form-input 
-            v-model="filter" 
-            type="search" 
-            id="filterInput" 
-            placeholder="Type to Search">
-        </b-form-input>
+<div>
+  <b-row>
+    <b-form-input 
+      v-model="filter" 
+      type="search" 
+      id="filterInput" 
+      placeholder="Type to Search"
+    ></b-form-input>
 
-        <b-table 
-            id="my-table"
-            striped hover 
-            class='text-center'  
-            :items="items"
-            :filter="filter" 
-            :fields="fields"
-            :per-page="perPage"
-            :current-page="currentPage"
-            label-sort-asc=""
-            label-sort-desc=""
-            label-sort-clear=""
-      
-        ></b-table>
+    <b-table 
+      id="my-table"
+      striped hover 
+      class='text-center'  
+      :items="items"
+      :filter="filter" 
+      :fields="fields"
+      :per-page="perPage"
+      :current-page="currentPage"
+      label-sort-asc=""
+      label-sort-desc=""
+      label-sort-clear=""
+    ></b-table>
 
-        <b-pagination
-            v-model="currentPage"
-            :total-rows="rows"
-            :per-page="perPage"
-            aria-controls="my-table">   
-        </b-pagination>
-    </b-row>
-  </div>
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-table"
+    ></b-pagination>
+  </b-row>
+</div>
 </template>
 
 <!------------------------------------------------------------------------>
