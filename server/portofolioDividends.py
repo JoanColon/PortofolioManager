@@ -27,6 +27,4 @@ def getPortofolioDividends():
 
     historicDividends=[DividendTicker, DividendYear]
 
-    print('hello')
-
     return historicDividends

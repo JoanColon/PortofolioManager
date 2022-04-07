@@ -8,7 +8,7 @@
     <h3>The total amount of anual expected divideds is: {{dividenAmount}} €/year</h3>
   </b-row>
 
-  <b-row> 
+   <b-row> 
     <b-tabs content-class="mt-3">
       <b-tab title="Portofolio Table">
         <!-- Table of current portofolio -->
@@ -75,31 +75,17 @@ export default {
   },
   methods:{
     //call to flask to get portofolio data 
-    getPortofolioData(){
-      this.isLoading = true
-      const path = 'http://localhost:5000/getPortofolio'; //path to flask route  
-      axios.get(path)
-        .then((res) => {
-          this.portofolioData = res.data; //portofoliData is the variable (empty list) defined in data section
-          this.isLoading = false
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-
-    // function tu submit the "Enter New Order" form when buuton is clicke (@submit="onSubmit")
-    // sends data to flask, in flask it will store the data in database will return updated data and a text response
-    onSubmit(event) {
-        event.preventDefault()
-        // alert(JSON.stringify(this.EnterAction))
-        const path='http://localhost:5000/postNewOrder'
-        let postData=this.EnterAction
-        axios.post(path, postData)
-        .then((res)=>{alert(JSON.stringify(res.data))})
+    async getPortofolioData(){
+      try{
+        this.isLoading = true
+        const path='http://localhost:5000/getPortofolio'
+        let {data} = await axios.get(path)
+        this.portofolioData=data
+        this.isLoading = false
+      } catch(error){console.log(error)}
     },
   },
-  mounted(){
+  created(){
     this.getPortofolioData(); //calls the function getPortofolioData when mounting the view
   }
 }

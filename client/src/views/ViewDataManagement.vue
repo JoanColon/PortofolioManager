@@ -9,6 +9,8 @@
 
   <FormNewOrder/>
 
+  <FormUpdatePortofolio/>
+
 </div>
 </template>
 
@@ -18,13 +20,15 @@
 <script>
 // import components
 import FormNewCompany from '@/components/FormNewCompany.vue' //@ redirects to src folder
-import FormNewOrder from '@/components/FormNewOrder.vue' 
+import FormNewOrder from '@/components/FormNewOrder.vue'
+import FormUpdatePortofolio from '@/components/FormUpdatePortofolio.vue'  
 
 export default {
   name: 'ViewDataManagement',
   components: {
     FormNewCompany,
-    FormNewOrder
+    FormNewOrder,
+    FormUpdatePortofolio
   },
 }
 </script>

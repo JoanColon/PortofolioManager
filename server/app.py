@@ -1,10 +1,14 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+import pandas as pd
 
 # python scripts imports
 from portofolio import getInvestingData
 from portofolioDividends import getPortofolioDividends
+from portofolioUpdate import getUpdatedPortofolio
+from s_newOrder import newOrder_rate
 
 # ---------------------------------------------------------------------------------
 # --------------------------------- CONFIGURATION ---------------------------------
@@ -32,17 +36,24 @@ class Company_Info(db.Model):
     Name = db.Column(db.String(100), unique=True, nullable=False)
     MyTicker = db.Column(db.String(10), unique=True, nullable=False)
     SearchTicker = db.Column(db.String(10), unique=True, nullable=False)
-    Currency = db.Column(db.String(10), unique=True, nullable=False)
-    Country = db.Column(db.String(10), unique=True, nullable=False)
-    Sector = db.Column(db.String(10), unique=True, nullable=False)
-    SuperSector = db.Column(db.String(10), unique=True, nullable=False)
+    Currency = db.Column(db.String(10), unique=False, nullable=False)
+    Country = db.Column(db.String(10), unique=False, nullable=False)
+    Sector = db.Column(db.String(10), unique=False, nullable=False)
+    SuperSector = db.Column(db.String(10), unique=False, nullable=False)
+
+class Company_Dividend(db.Model):
+    __tablename__ = 'company_dividend'
+
+    id = db.Column(db.Integer, primary_key=True)
+    MyTicker = db.Column(db.String(10), unique=True, nullable=False)
+    CurrentDividend = db.Column(db.Float, unique=False, nullable=False)
 
 class Order(db.Model):
     __tablename__ = 'order'
 
     id = db.Column(db.Integer, primary_key=True)
     OrderType = db.Column(db.String(5), unique=False, nullable=False)
-    OrderDate = db.Column(db.String(50))
+    OrderDate = db.Column(db.DateTime, nullable=False)
     MyTicker = db.Column(db.String(10), unique=False, nullable=False)
     Amount = db.Column(db.Float, unique=False, nullable=False)
     Price = db.Column(db.Float, unique=False, nullable=False)
@@ -50,8 +61,25 @@ class Order(db.Model):
     Total = db.Column(db.Float, unique=False, nullable=False)
     TotalBaseCurrency = db.Column(db.Float, unique=False, nullable=False)
 
+class Portofolio(db.Model):
+    __tablename__='portofolio'
+
+    id = db.Column(db.Integer, primary_key=True)
+    Name = db.Column(db.String(100), unique=True, nullable=False)
+    MyTicker = db.Column(db.String(10), unique=True, nullable=False)
+    Country = db.Column(db.String(10), unique=True, nullable=False)
+    Currency = db.Column(db.String(10), unique=True, nullable=False)
+    Sector = db.Column(db.String(10), unique=True, nullable=False)
+    SuperSector = db.Column(db.String(10), unique=True, nullable=False)
+    Amount = db.Column(db.Float, unique=False, nullable=False)
+    AveragePrice = db.Column(db.Float, unique=False, nullable=False)
+    CurrentPrice = db.Column(db.Float, unique=False, nullable=False)
+    DividendShare = db.Column(db.Float, unique=False, nullable=False)
+    MarketValue_BaseCurrency = db.Column(db.Float, unique=False, nullable=False)
+    Dividend_BaseCurrency = db.Column(db.Float, unique=False, nullable=False)
+
 # only run db.create_all() if ddbb is not yet created
-db.create_all()
+# db.create_all()
 
 # ---------------------------------------------------------------------------------
 # ----------------------------------- ROUTES --------------------------------------
@@ -85,28 +113,42 @@ def AddNewCompany():
         Sector=postData['Sector'],
         SuperSector=postData['Supersector']
     )
+
+    NewCompanyDividend=Company_Dividend(
+        MyTicker=postData['MyTicker'],
+        CurrentDividend=0 
+    )
     
     db.session.add(NewCompany)
+    db.session.add(NewCompanyDividend)
     db.session.commit()
     
     return jsonify('data uploaded to database')
 
-# Add NEW ORDER. GET DATA FROM "ViewPortofolio.vue" and adds to the database.
+# Add NEW ORDER. GET DATA FROM "FormNewOrder.vue" and adds to the database.
 @app.route('/postNewOrder', methods=['GET','POST'])
 def getVueData():
     postData=request.get_json(force=True)
+    Ticker=postData['Ticker']
 
+    # call company_Info table to get the currency of the ticker. Then call script s_newOrder to return currenctyRate
+    company = Company_Info.query.filter_by(MyTicker=Ticker).first()
+    currency=company.Currency
+    currencyRate=newOrder_rate(currency)
+    
+    # define new entry to the Order table
     NewOrder=Order(
        OrderType=postData['OrderType'],
-       OrderDate=postData['Date'],
-       Ticker=postData['Ticker'],
-       Amount=postData['Amount'],
-       Price=postData['Price'],
-       PriceBaseCurrency=100,
+       OrderDate=datetime.strptime(postData['Date'], '%Y-%m-%d'),
+       MyTicker=postData['Ticker'],
+       Amount=float(postData['Amount']),
+       Price=float(postData['Price']),
+       PriceBaseCurrency=float(postData['Price'])/currencyRate,
        Total=float(postData['Amount'])*float(postData['Price']),
-       TotalBaseCurrency=float(postData['Amount'])*100,
+       TotalBaseCurrency=float(postData['Amount'])*float(postData['Price'])/currencyRate
     )
 
+    # save new order into ddbb
     db.session.add(NewOrder)
     db.session.commit()
     
@@ -124,6 +166,21 @@ def getTickers():
 
     return jsonify(tickerList)
 
+
+# UPDATE CURRENT PORTOFOLIO
+@app.route('/updatePortoflio', methods=['GET', 'POST'])
+def updateportofolio():
+
+    CompanyInfo_table = Company_Info.query.all()
+    Order_table = Order.query.all()
+    Dividend_table = Company_Dividend.query.all()
+    data=[CompanyInfo_table, Order_table, Dividend_table]
+      
+    updatedPortofolio = getUpdatedPortofolio(data)
+
+    print(updatedPortofolio)
+
+    return jsonify('portofolio updated')
 # ---------------------------------------------------------------------------------
 # ----------------------------------- APP.RUN -------------------------------------
 # ---------------------------------------------------------------------------------

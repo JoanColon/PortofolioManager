@@ -60,7 +60,7 @@
             ></b-form-input>
         </div>
 
-        <b-button id="submit-1" type="submit" variant="primary">Add new order</b-button>
+        <b-button id="submitNewOrder" type="submit" variant="primary">Add new order</b-button>
   </b-form>
 </b-collapse>
 <hr>
