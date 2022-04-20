@@ -3,19 +3,24 @@
 <!------------------------------------------------------------------------>
 <template>
 <div>
-<b-card
-    title="Card Title"
-    img-src="https://picsum.photos/600/300/?image=25"
-    img-alt="Image"
-    img-top
-    tag="article"
-    style="max-width: 20rem;"
-    class="mb-2"
-    >
-    <b-card-text>
-        Some quick example text to build on the card title and make up the bulk of the card's content.
-    </b-card-text>
-</b-card>
+  <b-card no-body class="overflow-hidden" style="card">
+    <b-row no-gutters>
+      <b-col>
+        <b-card-img 
+            :src="require('@/assets/' + imageName + '')" 
+            alt="Image" 
+            class="carc-img rounded-0">
+        </b-card-img>
+      </b-col>
+      <b-col>
+        <b-card-body :title="title">
+          <b-card-text >
+            <h4 class="card-text">{{data}}</h4>
+          </b-card-text>
+        </b-card-body>
+      </b-col>
+    </b-row>
+  </b-card>
 </div>
 </template>
 
@@ -23,12 +28,30 @@
 <!--------------------------- Scripts ------------------------------------>
 <!------------------------------------------------------------------------>
 <script>
-
 export default {
     name:'BaseCard',
+    props:['title', 'data','imageName'],
 }
 </script>
 
 <!------------------------------------------------------------------------>
 <!---------------------------- Styles ------------------------------------>
 <!------------------------------------------------------------------------>
+<style scoped>
+.card{
+    margin-right: 25px;
+    margin-bottom: 20px;
+    max-width: 500px;
+    max-height:115px
+}
+
+.card-img{
+    height:100px;
+    width:100px;
+}
+
+.card-text{
+    font-weight: bold;
+}
+
+</style>

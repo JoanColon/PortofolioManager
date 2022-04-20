@@ -3,12 +3,23 @@
 <!------------------------------------------------------------------------>
 <template>
 <div class="stockanalysis">
-  <b-row class="mb-3">
-    <h3>The total value of the portofolio is: {{portofolioValue}} €</h3>
-    <h3>The total amount of anual expected divideds is: {{dividenAmount}} €/year</h3>
+  <b-row>
+    <div class="BaseCards">
+      <BaseCard
+      :imageName='portofolioImage'
+      :title='PortofolioTitle'
+      :data='portofolioValue'
+      />
+
+      <BaseCard
+      :imageName='dividendImage'
+      :title='DividendTitle'
+      :data='dividenAmount'
+      />
+    </div>
   </b-row>
 
-   <b-row> 
+  <b-row> 
     <b-tabs content-class="mt-3">
       <b-tab title="Portofolio Table">
         <!-- Table of current portofolio -->
@@ -38,38 +49,42 @@ import axios from 'axios'; //needed to call flask
 
 // import components
 import BaseTable from '@/components/BaseTable.vue'
+import BaseCard from '@/components/BaseCard.vue'
 
 
 export default {
   name: 'ViewPortofolio',
   components: {
     BaseTable,
+    BaseCard,
   },
   data(){
     return{
-      //data for the total value of the portofolio
-      portofolioValue:10000,
-      dividenAmount:10000,
+      // data for Portofolio MarketValue BaseCard
+      portofolioImage:'Portofolio.png',
+      PortofolioTitle: 'Portofolio Market Value:',
+      portofolioValue:'',
 
-      //data for the input form
-      EnterAction:{
-        ActionType:'',
-        Ticker:'',
-        Price:''
-      },
+      // data for annual dividend BaseCard
+      dividendImage:"Dividends.png",
+      DividendTitle: 'Annual Expected Dividends:',
+      dividenAmount:'',
 
       // data for the current portofolio table
       portofolioData:[],
       portofolioFields:[
         {key:'Name', sortable:true},
-        {key:'Symbol', sortable:true},
-        {key:'Amount', sortable:false},
+        {key:'Country', sortable:true},
+        {key:'Currency', sortable:true},
+        {key:'Amount', sortable:true},
+        {key:'AveragePrice', sortable:false},
         {key:'CurrentPrice', sortable:false},
-        {key:'MarketValue', sortable:false},
-        {key:'Weight', sortable: true}
+        {key:'DividendShare', sortable:false},
+        {key:'MarketValue (€)', sortable:true},
+        {key:'Dividend (€)', sortable:true},
       ],
 
-      //to prevent that the chart and the table are rendered before receiving the data
+      //to prevent that the table is rendered before receiving the data
       isLoading: false, 
     };
   },
@@ -80,7 +95,9 @@ export default {
         this.isLoading = true
         const path='http://localhost:5000/getPortofolio'
         let {data} = await axios.get(path)
-        this.portofolioData=data
+        this.portofolioData=data[0]
+        this.dividenAmount=data[1]
+        this.portofolioValue=data[2]
         this.isLoading = false
       } catch(error){console.log(error)}
     },
@@ -95,6 +112,10 @@ export default {
 <!---------------------------- Styles ------------------------------------>
 <!------------------------------------------------------------------------>
 <style scoped>
+.BaseCards{
+  display:flex;
+}
+
 .stockanalysis{
   margin-top:15px;
   margin-left: 20px;

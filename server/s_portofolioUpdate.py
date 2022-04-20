@@ -7,6 +7,8 @@ def getUpdatedPortofolio(data):
     ## ----------------------------------------------------------------------------------------------------- ##
     ## --------------------------- IMPORTING DATA AND PREPARING INITIAL DF --------------------------------- ##
     ## ----------------------------------------------------------------------------------------------------- ##
+    print('starting script')
+
     CompanyInfo_table=data[0]
     Order_table=data[1]
     Dividend_table=data[2]
@@ -73,6 +75,7 @@ def getUpdatedPortofolio(data):
 
     ## -------------------- add ['Current price'] column (call to Rapid Api) ----------------------------------
     def StockPriceMap(row):
+        print('starting StockPriceMap function')
         url="https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/" + row
 
         headers = {
@@ -105,7 +108,7 @@ def getUpdatedPortofolio(data):
     CureencyRate_dict={
         'EUR':response_currency['rates']['EUR'],
         'USD':response_currency['rates']['USD'],
-        'GPB':response_currency['rates']['GBP'],
+        'GBP':response_currency['rates']['GBP'],
         'HKD':response_currency['rates']['HKD'],
     }
 
@@ -146,6 +149,7 @@ def getUpdatedPortofolio(data):
         'Dividend (€/year)'
     ]]
 
-    portofolio_json=df_portofolio.to_json(orient='index')
+    portofolio_dict=df_portofolio.to_dict('index')
+    print(portofolio_dict)
 
-    return portofolio_json
+    return portofolio_dict
