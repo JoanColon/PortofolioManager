@@ -40,14 +40,19 @@ export default {
 <style scoped>
 .card{
     margin-right: 25px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     max-width: 500px;
-    max-height:115px
+    max-height:115px;
+    box-shadow: 5px 5px #888888;
 }
 
 .card-img{
     height:100px;
     width:100px;
+}
+
+.card-body{
+    white-space: nowrap /* makes teh text to fit in one line*/
 }
 
 .card-text{

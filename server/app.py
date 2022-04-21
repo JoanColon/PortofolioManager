@@ -117,8 +117,8 @@ def getPortofolio():
        TotalDividends = TotalDividends + Dividend
        TotalMarketValue = TotalMarketValue + MarketValue
     
-    TotalDividends = "{:.1f} €/year".format(TotalDividends)
-    TotalMarketValue = "{:.1f} €".format(TotalMarketValue)
+    TotalDividends = "{:>12,.1f} €/year".format(TotalDividends) # >12, = thousand comma separator; .1f = 1 decimal point separator
+    TotalMarketValue = "{:>12,.1f} €".format(TotalMarketValue)
 
     data=[PortofolioList, TotalDividends,TotalMarketValue]
 

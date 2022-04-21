@@ -4,6 +4,10 @@
 <template>
 <div class="stockanalysis">
   <b-row>
+    <!----------------------------------------------------------------------------------->
+    <!---------------------------- FIXED CARDS ------------------------------------------>
+    <!----------------------------------------------------------------------------------->
+    <!-- Cards showing current market value and total dividends/year -->
     <div class="BaseCards">
       <BaseCard
       :imageName='portofolioImage'
@@ -21,6 +25,9 @@
 
   <b-row> 
     <b-tabs content-class="mt-3">
+      <!----------------------------------------------------------------------------------->
+      <!---------------------------- TABLE tab -------------------------------------------->
+      <!----------------------------------------------------------------------------------->
       <b-tab title="Portofolio Table">
         <!-- Table of current portofolio -->
         <BaseTable
@@ -32,8 +39,18 @@
         />
       </b-tab>
 
+      <!----------------------------------------------------------------------------------->
+      <!--------------------------- CHARTS tab -------------------------------------------->
+      <!----------------------------------------------------------------------------------->
       <b-tab title="Portofolio Charts">
-        <!-- Charts of current portofolio -->
+        <div>
+          <BaseRadioBtn
+            :options='RadioOptions'
+            :RadioSelection='RadioSelection'
+            :RadioGroupLabel='RadioGroupLabel'
+          />
+        </div>
+
       </b-tab>
     </b-tabs>
   </b-row>
@@ -50,6 +67,7 @@ import axios from 'axios'; //needed to call flask
 // import components
 import BaseTable from '@/components/BaseTable.vue'
 import BaseCard from '@/components/BaseCard.vue'
+import BaseRadioBtn from '@/components/BaseRadioBtn.vue'
 
 
 export default {
@@ -57,6 +75,7 @@ export default {
   components: {
     BaseTable,
     BaseCard,
+    BaseRadioBtn,
   },
   data(){
     return{
@@ -85,7 +104,18 @@ export default {
       ],
 
       //to prevent that the table is rendered before receiving the data
-      isLoading: false, 
+      isLoading: false,
+    
+      // data for populating the radio buttons (BaseRadioBtn) in Portofolio Charts tab 
+      RadioGroupLabel: 'Choose an option to change the chart:',
+      RadioSelection:'Stock',
+      RadioOptions:[
+      {text:'Stock', value:'Stock'},
+      {text:'Currency', value:'Currency'},
+      {text:'Country', value:'Country'},
+      {text:'Sector', value:'Sector'},
+      {text:'Super Sector', value:'SuperSector'},
+      ]
     };
   },
   methods:{
@@ -141,17 +171,6 @@ export default {
   margin-left:20px;
   margin-right:auto;
   width: 95%;
-}
-
-button{
-  height:37px;
-  width:150px;
-  bottom: 0px;
-}
-
-#btnNewOrder{
-    margin-left:20px;
-    width:200px
 }
 
 </style>
