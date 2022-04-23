@@ -7,8 +7,7 @@ import pandas as pd
 # python scripts imports
 from portofolioDividends import getPortofolioDividends
 from s_portofolioUpdate import getUpdatedPortofolio
-from s_newOrder import newOrder_rate
-from s_test import getPortofolio_test
+from s_newOrder import getNewOrderCurrencyRate
 
 # ---------------------------------------------------------------------------------
 # --------------------------------- CONFIGURATION ---------------------------------
@@ -117,10 +116,12 @@ def getPortofolio():
        TotalDividends = TotalDividends + Dividend
        TotalMarketValue = TotalMarketValue + MarketValue
     
+    Yield="{:.2f} %".format(TotalDividends/TotalMarketValue*100)
     TotalDividends = "{:>12,.1f} €/year".format(TotalDividends) # >12, = thousand comma separator; .1f = 1 decimal point separator
     TotalMarketValue = "{:>12,.1f} €".format(TotalMarketValue)
 
-    data=[PortofolioList, TotalDividends,TotalMarketValue]
+
+    data=[PortofolioList, TotalDividends,TotalMarketValue, Yield]
 
     return jsonify(data)
 
@@ -166,7 +167,7 @@ def getVueData():
     # call company_Info table to get the currency of the ticker. Then call script s_newOrder to return currenctyRate
     company = Company_Info.query.filter_by(MyTicker=Ticker).first()
     currency=company.Currency
-    currencyRate=newOrder_rate(currency)
+    currencyRate=getNewOrderCurrencyRate(currency)
     
     # define new entry to the Order table
     NewOrder=Order(
@@ -202,7 +203,7 @@ def getTickers():
 @app.route('/updatePortoflio', methods=['GET', 'POST'])
 def updateportofolio():
 
-    #delete all rows from previous table
+    # delete all rows from previous table
     Portofolio.query.delete()
 
     #get new data 
@@ -212,10 +213,6 @@ def updateportofolio():
     data=[CompanyInfo_table, Order_table, Dividend_table]
       
     UpdatedPortofolio_dict = getUpdatedPortofolio(data)
-    
-    # UpdatedPortofolio_dict = getPortofolio_test()
-
-    print(UpdatedPortofolio_dict)
   
     for stock in UpdatedPortofolio_dict:
         UpdatedCompany=Portofolio(
@@ -237,9 +234,8 @@ def updateportofolio():
         db.session.add(UpdatedCompany)
         db.session.commit()
 
-        print('stock committed')
-
     return jsonify('portofolio updated')
+
 # ---------------------------------------------------------------------------------
 # ----------------------------------- APP.RUN -------------------------------------
 # ---------------------------------------------------------------------------------

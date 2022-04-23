@@ -1,8 +1,9 @@
 import requests
 import json
 
-def testEchangeRate():
-    try: ## first rapidApi API to test, if not work try the except route   
+def getExchangeRates():
+    ## first rapidApi API to test, if not work try the except route 
+    try:   
         url = "https://exchangerate-api.p.rapidapi.com/rapid/latest/EUR"
 
         headers = {
@@ -20,9 +21,12 @@ def testEchangeRate():
             'HKD':response_currency['rates']['HKD'],
         }
 
+        print(CurrencyRate_dict)
+
         return CurrencyRate_dict
 
-    except: ## second rapidApi call in case the first one is not working
+    ## second rapidApi call in case the first one is not working
+    except: 
         url = "https://fixer-fixer-currency-v1.p.rapidapi.com/latest" ## rapidApi Fixer Currency API
         querystring = {"base":"EUR","symbols":"EUR,USD,GBP,HKD"}
         
@@ -43,4 +47,3 @@ def testEchangeRate():
         }
 
         return CurrencyRate_dict
-

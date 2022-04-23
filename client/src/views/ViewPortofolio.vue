@@ -7,7 +7,7 @@
     <!----------------------------------------------------------------------------------->
     <!---------------------------- FIXED CARDS ------------------------------------------>
     <!----------------------------------------------------------------------------------->
-    <!-- Cards showing current market value and total dividends/year -->
+    <!--- Cards showing current market value, total dividends/year and  dividend yield -->
     <div class="BaseCards">
       <BaseCard
       :imageName='portofolioImage'
@@ -19,6 +19,12 @@
       :imageName='dividendImage'
       :title='DividendTitle'
       :data='dividenAmount'
+      />
+
+      <BaseCard
+      :imageName='YieldImage'
+      :title='YieldTitle'
+      :data='YieldValue'
       />
     </div>
   </b-row>
@@ -89,13 +95,18 @@ export default {
       DividendTitle: 'Annual Expected Dividends:',
       dividenAmount:'',
 
+      // data for annual dividend yield BaseCard
+      YieldImage:"Yield.png",
+      YieldTitle: 'Current Dividend Yield:',
+      YieldValue:'',
+
       // data for the current portofolio table
       portofolioData:[],
       portofolioFields:[
         {key:'Name', sortable:true},
         {key:'Country', sortable:true},
         {key:'Currency', sortable:true},
-        {key:'Amount', sortable:true},
+        {key:'Amount', sortable:false},
         {key:'AveragePrice', sortable:false},
         {key:'CurrentPrice', sortable:false},
         {key:'DividendShare', sortable:false},
@@ -111,8 +122,8 @@ export default {
       RadioSelection:'Stock',
       RadioOptions:[
       {text:'Stock', value:'Stock'},
-      {text:'Currency', value:'Currency'},
       {text:'Country', value:'Country'},
+      {text:'Currency', value:'Currency'},
       {text:'Sector', value:'Sector'},
       {text:'Super Sector', value:'SuperSector'},
       ]
@@ -128,6 +139,7 @@ export default {
         this.portofolioData=data[0]
         this.dividenAmount=data[1]
         this.portofolioValue=data[2]
+        this.YieldValue=data[3]
         this.isLoading = false
       } catch(error){console.log(error)}
     },
@@ -149,22 +161,6 @@ export default {
 .stockanalysis{
   margin-top:15px;
   margin-left: 20px;
-}
-
-#OrderForm{
-  display:flex;
-  max-width:100%;
-  justify-content: space-around,
-}
-
-#select-1{
-  width:200px;
-  height:34px;
-  margin-left: 10px;
-  border:1px solid grey;
-}
-.form-item{
-  margin-right: 20px;
 }
 
 #PortofolioTable{
