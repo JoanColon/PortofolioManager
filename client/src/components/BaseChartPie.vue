@@ -3,16 +3,7 @@
 <!------------------------------------------------------------------------>
 <template>
 <div>
-    <b-form-group :label="RadioGroupLabel" v-slot="{ ariaDescribedby }">
-      <b-form-radio-group
-        v-model="selected"
-        :options="options"
-        :aria-describedby="ariaDescribedby"
-        name="plain-inline"
-        plain
-      ></b-form-radio-group>
-    </b-form-group>
-    {{selected}}
+    <Plotly :data="data" :layout="layout"></Plotly>
 </div>
 </template>
 
@@ -20,22 +11,33 @@
 <!--------------------------- Scripts ------------------------------------>
 <!------------------------------------------------------------------------>
 <script>
+import { Plotly } from 'vue-plotly'
+
 export default {
-    name:'BaseRadioBtn',
-
-    props:['options','RadioSelection','RadioGroupLabel'],
-
-    data(){
-        return{
-            selected: this.RadioSelection,
+    name:'BaseChartPie',
+    components: {
+    Plotly
+    },
+    data() {
+        return {
+        data:[{
+            type: 'pie',
+            values: this.pieChartData,
+            labels: this.pieChartLabels,
+            textinfo: "label+percent",
+        }],
+        layout:{
+            title: this.MyChartTitle,
+            showlegend: false,
+            height: 800,
+            width: 800,
+        }
         }
     },
+    props: ['pieChartData','pieChartLabels','MyChartTitle']
 }
 </script>
 
 <!------------------------------------------------------------------------>
 <!---------------------------- Styles ------------------------------------>
 <!------------------------------------------------------------------------>
-<style scoped>
-
-</style>

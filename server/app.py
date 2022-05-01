@@ -6,7 +6,7 @@ import pandas as pd
 
 # python scripts imports
 from portofolioDividends import getPortofolioDividends
-from s_portofolioUpdate import getUpdatedPortofolio
+from s_portofolioUpdate import getUpdatedPortofolio, getPortofolioPieChart
 from s_newOrder import getNewOrderCurrencyRate
 
 # ---------------------------------------------------------------------------------
@@ -84,11 +84,16 @@ class Portofolio(db.Model):
 # ----------------------------------- ROUTES --------------------------------------
 # ---------------------------------------------------------------------------------
 
+# --------------------------- PORTOFOLIO TAB ---------------------------------------
+
 # get CURRENT PORTOFOLIO DATA, ticker, current price, market value, etc. SEND TO "ViewPortofolio.vue"
 @app.route('/getPortofolio', methods=['GET'])
 def getPortofolio():
 
     PortofolioList=[]
+    TickerList=[]
+    MarketValueList=[]
+    DividendList=[]
     for row in Portofolio.query.all():
         CompanyDict={
             'Name': row.Name,
@@ -106,6 +111,9 @@ def getPortofolio():
         }
 
         PortofolioList.append(CompanyDict)
+        TickerList.append(row.MyTicker)
+        MarketValueList.append(row.MarketValue_BaseCurrency)
+        DividendList.append(row.Dividend_BaseCurrency)
 
     # get total dividends/year and current market value of the portofolio
     TotalDividends=0
@@ -120,10 +128,26 @@ def getPortofolio():
     TotalDividends = "{:>12,.1f} €/year".format(TotalDividends) # >12, = thousand comma separator; .1f = 1 decimal point separator
     TotalMarketValue = "{:>12,.1f} €".format(TotalMarketValue)
 
-
-    data=[PortofolioList, TotalDividends,TotalMarketValue, Yield]
+    data=[PortofolioList, TotalDividends,TotalMarketValue, Yield, TickerList, MarketValueList, DividendList]
 
     return jsonify(data)
+
+@app.route('/PortolioCharts', methods=['POST'])
+def getPortofolioCharts():
+    if request.method=='POST':
+        # post data from vue request (returns de user selection of a Portofolio Charts radio button)
+        postData=request.get_json()
+        radioSelection=postData['data']
+
+        # get all portofolio data
+        data=Portofolio.query.all()
+
+        # response to retur to client. returns data to update the Portofolio pie charts
+        response=getPortofolioPieChart(data, radioSelection)
+
+    return jsonify(response)
+
+# --------------------------- HISTORIC PERFORMANCE TAB -------------------------------------
 
 # get HISTORIC DIVIDEND DATA. SEND TO "ViewDividends.vue"
 @app.route('/historicDividends', methods=['GET'])
@@ -132,6 +156,8 @@ def getHisotoricDividends():
 
     return jsonify(historicDividends)
 
+
+# ---------------------------- DATA MANAGEMENT TAB --------------------------------------------
 # Add NEW COMPANY. GET DATA FROM "FormNewCompnay.vue"and adds it to the database (table Stock_General_Info_db). 
 @app.route('/addNewCompany', methods=['GET', 'POST'])
 def AddNewCompany():

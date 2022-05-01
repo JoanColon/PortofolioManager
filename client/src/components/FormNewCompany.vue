@@ -65,7 +65,7 @@
         <label class="sr-only" for="inline-form-input-Sector">Sector:</label>
         <b-form-select
         id="inline-form-select-Sector"
-        :options="['Basic Materials', 'Consumer', 'Consumer Cyclical', 'Consumer Defensive', 'Communication Services', 'Energy', 'ETF', 'Financial Services', 'Healtchare', 'Industrials', 'Real State', 'Technology', 'Utilities']" 
+        :options="['Basic Materials', 'Consumer Cyclical', 'Consumer Defensive', 'Communication Services', 'Energy', 'ETF', 'Financial Services', 'Healtchare', 'Industrials', 'Real State', 'Technology', 'Utilities']" 
         class="form_input"
         required
         v-model='AddNewCompany.Sector'

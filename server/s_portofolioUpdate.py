@@ -1,3 +1,4 @@
+from ast import Index
 from flask import jsonify
 import pandas as pd
 import requests
@@ -137,3 +138,32 @@ def getUpdatedPortofolio(data):
     portofolio_dict=df_portofolio.to_dict('index')
 
     return portofolio_dict
+
+
+def getPortofolioPieChart(data, radioSelection):
+
+    PortofolioList=[]
+    for row in data:
+        CompanyDict={
+            'MyTicker': row.MyTicker,
+            'Country': row.Country,
+            'Currency': row.Currency,
+            'Sector': row.Sector,
+            'SuperSector': row.SuperSector,
+            'MarketValue (€)':row.MarketValue_BaseCurrency,
+            'Dividend (€)': row.Dividend_BaseCurrency
+        }
+
+        PortofolioList.append(CompanyDict)
+
+    df=pd.DataFrame.from_dict(PortofolioList)
+
+    df=df.groupby([radioSelection]).sum()
+
+    LabelList=df.index.values.tolist()
+    MarketValueList=df['MarketValue (€)'].tolist()
+    DividendList=df['Dividend (€)'].tolist()
+    
+    chartData=[LabelList, MarketValueList, DividendList]
+
+    return chartData

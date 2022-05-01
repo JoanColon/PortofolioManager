@@ -49,14 +49,36 @@
       <!--------------------------- CHARTS tab -------------------------------------------->
       <!----------------------------------------------------------------------------------->
       <b-tab title="Portofolio Charts">
-        <div>
-          <BaseRadioBtn
-            :options='RadioOptions'
-            :RadioSelection='RadioSelection'
-            :RadioGroupLabel='RadioGroupLabel'
-          />
-        </div>
+        <b-row>
+          <b-form-group label='Choose an option to change the chart:' v-slot="{ ariaDescribedby }">
+            <b-form-radio-group
+              @change="onChange()"
+              v-model="selected"
+              :options="RadioOptions"
+              :aria-describedby="ariaDescribedby"
+              name="plain-inline"
+              plain
+            ></b-form-radio-group>
+          </b-form-group>
+        </b-row>
 
+        <b-row>
+          <div class="chartlayout">
+            <BaseChartPie
+              v-if='!isLoading' 
+              :pieChartData='pieStockData'
+              :pieChartLabels='pieStockLabels'
+              :MyChartTitle='pieStockTitle'
+            />
+
+            <BaseChartPie
+              v-if='!isLoading' 
+              :pieChartData='pieDividendData'
+              :pieChartLabels='pieStockLabels'
+              :MyChartTitle='pieDividendTitle'
+            />
+          </div>
+        </b-row>
       </b-tab>
     </b-tabs>
   </b-row>
@@ -73,7 +95,7 @@ import axios from 'axios'; //needed to call flask
 // import components
 import BaseTable from '@/components/BaseTable.vue'
 import BaseCard from '@/components/BaseCard.vue'
-import BaseRadioBtn from '@/components/BaseRadioBtn.vue'
+import BaseChartPie from '@/components/BaseChartPie.vue'
 
 
 export default {
@@ -81,7 +103,7 @@ export default {
   components: {
     BaseTable,
     BaseCard,
-    BaseRadioBtn,
+    BaseChartPie,
   },
   data(){
     return{
@@ -113,20 +135,29 @@ export default {
         {key:'MarketValue (€)', sortable:true},
         {key:'Dividend (€)', sortable:true},
       ],
+    
+      // data for populating the initial stock chart 
+      pieStockData:[],
+      pieStockLabels:[],
+      pieStockTitle:'Stock % distribution',
+
+      // data for populating the initial dividend chart, labels are the same for both pie charts (only defined above)
+      pieDividendData:[],
+      pieDividendTitle:'Dividend % distribution',
+
+      //data for the radiobuttons
+      selected:'MyTicker', // Initially shows the radio button MyTicker as selected
+
+      RadioOptions:[ // data for populating the radio buttons (BaseRadioBtn) in Portofolio Charts tab 
+        {text:'Stock', value:'MyTicker'},
+        {text:'Country', value:'Country'},
+        {text:'Currency', value:'Currency'},
+        {text:'Sector', value:'Sector'},
+        {text:'Super Sector', value:'SuperSector'},
+      ],
 
       //to prevent that the table is rendered before receiving the data
       isLoading: false,
-    
-      // data for populating the radio buttons (BaseRadioBtn) in Portofolio Charts tab 
-      RadioGroupLabel: 'Choose an option to change the chart:',
-      RadioSelection:'Stock',
-      RadioOptions:[
-      {text:'Stock', value:'Stock'},
-      {text:'Country', value:'Country'},
-      {text:'Currency', value:'Currency'},
-      {text:'Sector', value:'Sector'},
-      {text:'Super Sector', value:'SuperSector'},
-      ]
     };
   },
   methods:{
@@ -140,13 +171,30 @@ export default {
         this.dividenAmount=data[1]
         this.portofolioValue=data[2]
         this.YieldValue=data[3]
+        this.pieStockLabels=data[4]
+        this.pieStockData=data[5]
+        this.pieDividendData=data[6]
+        this.isLoading = false
+      } catch(error){console.log(error)}
+    },
+
+    // update pie charts according to radiobutton selection
+    async onChange() {
+      try{
+        this.isLoading = true
+        let postData={data: this.selected} //data to post must be an object (dictionary)
+        const path='http://localhost:5000/PortolioCharts'
+        let response= await axios.post(path, postData)
+        this.pieStockLabels=response.data[0]
+        this.pieStockData=response.data[1]
+        this.pieDividendData=response.data[2]
         this.isLoading = false
       } catch(error){console.log(error)}
     },
   },
   created(){
     this.getPortofolioData(); //calls the function getPortofolioData when mounting the view
-  }
+  },
 }
 </script>
 
@@ -167,6 +215,10 @@ export default {
   margin-left:20px;
   margin-right:auto;
   width: 95%;
+}
+
+.chartlayout{
+  display:flex
 }
 
 </style>

@@ -11,7 +11,7 @@ def getExchangeRates():
             "X-RapidAPI-Key": "f160d6aebamshae49215262502edp110b27jsn6f09ea528fcb"
         }
 
-        response_currency = requests.request("GET", url, headers=headers)
+        response_currency = requests.request("GET", url, headers=headers) ## response from rapidAPI (returns a text)
         response_currency=json.loads(response_currency.text) ## transforms rapidApi response (text) to a python dictionary
     
         CurrencyRate_dict={
@@ -20,8 +20,6 @@ def getExchangeRates():
             'GBP':response_currency['rates']['GBP'],
             'HKD':response_currency['rates']['HKD'],
         }
-
-        print(CurrencyRate_dict)
 
         return CurrencyRate_dict
 
