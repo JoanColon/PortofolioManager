@@ -7,6 +7,7 @@ import pandas as pd
 # python scripts imports
 from portofolioDividends import getPortofolioDividends
 from s_portofolioUpdate import getUpdatedPortofolio, getPortofolioPieChart
+from s_historicPerfomance import getHistoricPortofolioChart
 from s_newOrder import getNewOrderCurrencyRate
 
 # ---------------------------------------------------------------------------------
@@ -77,6 +78,16 @@ class Portofolio(db.Model):
     MarketValue_BaseCurrency = db.Column(db.Float, unique=False, nullable=False)
     Dividend_BaseCurrency = db.Column(db.Float, unique=False, nullable=False)
 
+class HistoricPortofolio(db.Model):
+    __tablename__='historicPortofolio'
+
+    id = db.Column(db.Integer, primary_key=True)
+    Year =db.Column(db.Integer, unique=True, nullable=False)
+    Deposit = db.Column(db.Float, unique=False, nullable=False)
+    Withdraw = db.Column(db.Float, unique=False, nullable=False)
+    NetDeposit = db.Column(db.Float, unique=False, nullable=False)
+    PortofolioVaue = db.Column(db.Float, unique=False, nullable=False)
+
 # only run db.create_all() if ddbb is not yet created or need to create a new table
 # db.create_all()
 
@@ -84,7 +95,7 @@ class Portofolio(db.Model):
 # ----------------------------------- ROUTES --------------------------------------
 # ---------------------------------------------------------------------------------
 
-# --------------------------- PORTOFOLIO TAB ---------------------------------------
+# --------------------------- PORTOFOLIO VIEW ---------------------------------------
 
 # get CURRENT PORTOFOLIO DATA, ticker, current price, market value, etc. SEND TO "ViewPortofolio.vue"
 @app.route('/getPortofolio', methods=['GET'])
@@ -147,9 +158,18 @@ def getPortofolioCharts():
 
     return jsonify(response)
 
-# --------------------------- HISTORIC PERFORMANCE TAB -------------------------------------
+# --------------------------- HISTORIC PERFORMANCE VIEW -------------------------------------
 
 # get HISTORIC DIVIDEND DATA. SEND TO "ViewDividends.vue"
+@app.route('/historicPortofolio', methods=['GET', 'POST'])
+def getHistoricPortofolio():
+
+    HistoricPortofolio_table = HistoricPortofolio.query.all()
+
+    data = getHistoricPortofolioChart(HistoricPortofolio_table)
+
+    return jsonify(data)
+
 @app.route('/historicDividends', methods=['GET'])
 def getHisotoricDividends():
     historicDividends=getPortofolioDividends() #funciton imported from portofolioDivindeds.py
@@ -157,7 +177,12 @@ def getHisotoricDividends():
     return jsonify(historicDividends)
 
 
-# ---------------------------- DATA MANAGEMENT TAB --------------------------------------------
+# --------------------------- STOCK ANALSYIS VIEW -------------------------------------
+
+
+
+
+# ---------------------------- DATA MANAGEMENT VIEW --------------------------------------------
 # Add NEW COMPANY. GET DATA FROM "FormNewCompnay.vue"and adds it to the database (table Stock_General_Info_db). 
 @app.route('/addNewCompany', methods=['GET', 'POST'])
 def AddNewCompany():

@@ -1,5 +1,3 @@
-from ast import Index
-from flask import jsonify
 import pandas as pd
 import requests
 import json

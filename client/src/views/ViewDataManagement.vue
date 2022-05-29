@@ -3,13 +3,15 @@
 <!------------------------------------------------------------------------>
 <template>
 <div class="dividends">
-  <h3>Enter and modify portofolio data</h3>
+<h3>General Forms</h3>
+<FormNewCompany/>
 
-  <FormNewCompany/>
+<FormNewOrder/>
 
-  <FormNewOrder/>
+<h3>Portofolio forms</h3>
+<FormUpdatePortofolio/>
 
-  <FormUpdatePortofolio/>
+<h3>Historic Performance forms</h3>
 
 </div>
 </template>
@@ -37,5 +39,8 @@ export default {
 <!---------------------------- Styles ------------------------------------>
 <!------------------------------------------------------------------------>
 <style scoped>
+h3{
+  margin-left: 10px;
+}
 
 </style>
