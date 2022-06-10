@@ -1,0 +1,76 @@
+﻿Dividends,Header,Currency,Date,Description,Amount
+Dividends,Data,EUR,2019-01-08,REE(ES0173093024) Cash Dividend 0.27270000 EUR per Share (Ordinary Dividend),204.53
+Dividends,Data,EUR,2019-02-01,SAN(ES0113900J37) Cash Dividend 0.06500000 EUR per Share (Ordinary Dividend),139.23
+Dividends,Data,EUR,2019-02-05,IBE(ES06445809H0) Expire Dividend Right (Ordinary Dividend),6.04
+Dividends,Data,EUR,2019-02-18,ACS(ES06670509E9) Expire Dividend Right (Ordinary Dividend),10.35
+Dividends,Data,EUR,2019-03-20,UNA(NL0000009355) Cash Dividend 0.38720000 EUR per Share (Ordinary Dividend),11.61
+Dividends,Data,EUR,2019-05-02,SAN(ES0113900J37) Cash Dividend 0.06500000 EUR per Share (Ordinary Dividend),139.23
+Dividends,Data,EUR,2019-05-08,BAS(DE000BASF111) Cash Dividend 3.20000000 EUR per Share (Ordinary Dividend),272
+Dividends,Data,EUR,2019-05-10,BME(ES0115056139) Cash Dividend 0.57000000 EUR per Share (Ordinary Dividend),199.5
+Dividends,Data,EUR,2019-05-27,DAI(DE0007100000) Cash Dividend 3.25000000 EUR per Share (Ordinary Dividend),406.25
+Dividends,Data,EUR,2019-06-05,UNA(NL0000009355) Cash Dividend 0.41040000 EUR per Share (Ordinary Dividend),12.32
+Dividends,Data,EUR,2019-06-20,TEF(ES0178430E18) Cash Dividend 0.20000000 EUR per Share (Ordinary Div - NRA Withholding Exempt),200.4
+Dividends,Data,EUR,2019-06-25,MAP(ES0124244E34) Cash Dividend 0.08570000 EUR per Share (Ordinary Dividend),342.8
+Dividends,Data,EUR,2019-07-01,REE(ES0173093024) Cash Dividend 0.71040000 EUR per Share (Ordinary Dividend),532.8
+Dividends,Data,EUR,2019-07-03,ENG(ES0130960018) Cash Dividend 0.91800000 EUR per Share (Ordinary Dividend),390.15
+Dividends,Data,EUR,2019-07-18,ACS(ES06670509F6) Expire Dividend Right (Ordinary Dividend),2.9
+Dividends,Data,EUR,2019-07-29,IBE(ES06445809I8) Expire Dividend Right (Ordinary Dividend),311.6
+Dividends,Data,EUR,2019-09-11,UNA(NL0000388619) Cash Dividend EUR 0.4104 per Share (Ordinary Dividend),12.32
+Dividends,Data,EUR,2019-09-13,BME(ES0115056139) Cash Dividend EUR 0.40 per Share (Ordinary Dividend),140
+Dividends,Data,EUR,2019-11-01,SAN(ES0113900J37) Cash Dividend EUR 0.10 per Share (Ordinary Dividend),214.2
+Dividends,Data,EUR,2019-12-04,UNA(NL0000388619) Cash Dividend EUR 0.4104 per Share (Ordinary Dividend),12.32
+Dividends,Data,EUR,2019-12-19,TEF(ES0178430E18) Cash Dividend EUR 0.20 per Share (Ordinary Div - NRA Withholding Exempt),200.39
+Dividends,Data,EUR,2019-12-23,ENG(ES0130960018) Cash Dividend EUR 0.64 per Share (Ordinary Dividend),272
+Dividends,Data,EUR,2019-12-23,MAP(ES0124244E34) Cash Dividend EUR 0.0606 per Share (Ordinary Dividend),242.39
+Dividends,Data,EUR,2019-12-30,BME(ES0115056139) Cash Dividend EUR 0.60 per Share (Ordinary Dividend),210
+Dividends,Data,GBP,2019-03-27,ISF(IE0005042456) Cash Dividend 0.07120000 GBP per Share (Mixed Income),32.75
+Dividends,Data,GBP,2019-06-26,ISF(IE0005042456) Cash Dividend 0.10560000 GBP per Share (Mixed Income),48.58
+Dividends,Data,GBP,2019-09-25,ISF(IE0005042456) Cash Dividend GBP 0.0951 per Share (Mixed Income),43.75
+Dividends,Data,GBP,2019-12-27,ISF(IE0005042456) Cash Dividend GBP 0.0607 per Share (Mixed Income),36.42
+Dividends,Data,USD,2019-01-11,PM(US7181721090) Cash Dividend 1.14000000 USD per Share (Ordinary Dividend),72.96
+Dividends,Data,USD,2019-01-15,O(US7561091049) Cash Dividend 0.22100000 USD per Share (Ordinary Dividend),11.05
+Dividends,Data,USD,2019-02-01,T(US00206R1023) Cash Dividend 0.51000000 USD per Share (Ordinary Dividend),127.5
+Dividends,Data,USD,2019-02-15,O(US7561091049) Cash Dividend 0.22550000 USD per Share (Ordinary Dividend),11.28
+Dividends,Data,USD,2019-02-15,PG(US7427181091) Cash Dividend 0.71720000 USD per Share (Ordinary Dividend),32.27
+Dividends,Data,USD,2019-02-28,HCP(US40414L1098) Cash Dividend 0.37000000 USD per Share (Ordinary Dividend),48.47
+Dividends,Data,USD,2019-03-11,CVX(US1667641005) Cash Dividend 1.19000000 USD per Share (Ordinary Dividend),46.41
+Dividends,Data,USD,2019-03-12,JNJ(US4781601046) Cash Dividend 0.90000000 USD per Share (Ordinary Dividend),4.5
+Dividends,Data,USD,2019-03-15,MCD(US5801351017) Cash Dividend 1.16000000 USD per Share (Ordinary Dividend),5.8
+Dividends,Data,USD,2019-03-15,O(US7561091049) Cash Dividend 0.22550000 USD per Share (Ordinary Dividend),11.28
+Dividends,Data,USD,2019-04-01,KO(US1912161007) Cash Dividend 0.40000000 USD per Share (Ordinary Dividend),5.2
+Dividends,Data,USD,2019-04-11,PM(US7181721090) Cash Dividend 1.14000000 USD per Share (Mixed Income),85.5
+Dividends,Data,USD,2019-04-15,O(US7561091049) Cash Dividend 0.22600000 USD per Share (Ordinary Dividend),11.3
+Dividends,Data,USD,2019-05-01,T(US00206R1023) Cash Dividend 0.51000000 USD per Share (Ordinary Dividend),127.5
+Dividends,Data,USD,2019-05-15,O(US7561091049) Cash Dividend 0.22600000 USD per Share (Ordinary Dividend),11.3
+Dividends,Data,USD,2019-05-15,PG(US7427181091) Cash Dividend 0.74590000 USD per Share (Ordinary Dividend),33.57
+Dividends,Data,USD,2019-05-21,HCP(US40414L1098) Cash Dividend 0.37000000 USD per Share (Ordinary Dividend),48.47
+Dividends,Data,USD,2019-06-10,CVX(US1667641005) Cash Dividend 1.19000000 USD per Share (Ordinary Dividend),46.41
+Dividends,Data,USD,2019-06-11,JNJ(US4781601046) Cash Dividend 0.95000000 USD per Share (Ordinary Dividend),4.75
+Dividends,Data,USD,2019-06-14,O(US7561091049) Cash Dividend 0.22600000 USD per Share (Ordinary Dividend),11.3
+Dividends,Data,USD,2019-06-17,MCD(US5801351017) Cash Dividend 1.16000000 USD per Share (Ordinary Dividend),5.8
+Dividends,Data,USD,2019-07-01,KO(US1912161007) Cash Dividend 0.40000000 USD per Share (Ordinary Dividend),5.2
+Dividends,Data,USD,2019-07-10,PM(US7181721090) Cash Dividend 1.14000000 USD per Share (Ordinary Dividend),85.5
+Dividends,Data,USD,2019-07-15,O(US7561091049) Cash Dividend 0.22650000 USD per Share (Ordinary Dividend),10.65
+Dividends,Data,USD,2019-07-15,O(US7561091049) Payment in Lieu of Dividend (Ordinary Dividend),0.68
+Dividends,Data,USD,2019-08-01,T(US00206R1023) Cash Dividend 0.51000000 USD per Share (Ordinary Dividend),127.5
+Dividends,Data,USD,2019-08-15,O(US7561091049) Cash Dividend 0.22650000 USD per Share (Ordinary Dividend),0.91
+Dividends,Data,USD,2019-08-15,O(US7561091049) Payment in Lieu of Dividend (Ordinary Dividend),10.42
+Dividends,Data,USD,2019-08-15,PG(US7427181091) Cash Dividend 0.74590000 USD per Share (Ordinary Dividend),33.57
+Dividends,Data,USD,2019-08-20,HCP(US40414L1098) Cash Dividend USD 0.37 per Share (Ordinary Dividend),48.47
+Dividends,Data,USD,2019-09-10,CVX(US1667641005) Cash Dividend USD 1.19 per Share (Ordinary Dividend),46.41
+Dividends,Data,USD,2019-09-10,JNJ(US4781601046) Cash Dividend USD 0.95 per Share (Ordinary Dividend),4.75
+Dividends,Data,USD,2019-09-13,O(US7561091049) Cash Dividend USD 0.2265 per Share (Ordinary Dividend),2.27
+Dividends,Data,USD,2019-09-13,O(US7561091049) Payment in Lieu of Dividend (Ordinary Dividend),9.06
+Dividends,Data,USD,2019-09-17,MCD(US5801351017) Cash Dividend USD 1.16 per Share (Ordinary Dividend),5.8
+Dividends,Data,USD,2019-10-01,KO(US1912161007) Cash Dividend USD 0.40 per Share (Ordinary Dividend),5.2
+Dividends,Data,USD,2019-10-11,PM(US7181721090) Cash Dividend USD 1.17 per Share (Ordinary Dividend),93.6
+Dividends,Data,USD,2019-10-15,O(US7561091049) Cash Dividend USD 0.227 per Share (Ordinary Dividend),11.35
+Dividends,Data,USD,2019-11-01,T(US00206R1023) Cash Dividend USD 0.51 per Share (Ordinary Dividend),127.5
+Dividends,Data,USD,2019-11-15,O(US7561091049) Cash Dividend USD 0.227 per Share (Ordinary Dividend),11.35
+Dividends,Data,USD,2019-11-15,PG(US7427181091) Cash Dividend USD 0.7459 per Share (Ordinary Dividend),33.57
+Dividends,Data,USD,2019-11-19,HCP(US40414L1098) Cash Dividend USD 0.37 per Share (Ordinary Dividend),48.47
+Dividends,Data,USD,2019-12-10,CVX(US1667641005) Cash Dividend USD 1.19 per Share (Ordinary Dividend),46.41
+Dividends,Data,USD,2019-12-10,JNJ(US4781601046) Cash Dividend USD 0.95 per Share (Ordinary Dividend),4.75
+Dividends,Data,USD,2019-12-13,O(US7561091049) Cash Dividend USD 0.227 per Share (Ordinary Dividend),11.35
+Dividends,Data,USD,2019-12-16,KO(US1912161007) Cash Dividend USD 0.40 per Share (Ordinary Dividend),5.2
+Dividends,Data,USD,2019-12-16,MCD(US5801351017) Cash Dividend USD 1.25 per Share (Ordinary Dividend),6.25

@@ -3,8 +3,6 @@
 <!------------------------------------------------------------------------>
 <template>
 <div>
-<b-button v-b-toggle.FormNewCompany class="btn_toggle"><b-icon icon="arrow-down-circle-fill"></b-icon> New Company</b-button>
-<b-collapse id="FormNewCompany" class="mt-2">
   <b-form inline id="NewCompanyForm" @submit="onSubmit">
     <div class="group">
         <label class="sr-only" for="inline-form-input-name">Name:</label>
@@ -85,8 +83,6 @@
 
     <b-button id="submit-1" type="submit" variant="primary">Add new company</b-button>
   </b-form>
-</b-collapse>
-<hr>
 </div>
 </template>
 

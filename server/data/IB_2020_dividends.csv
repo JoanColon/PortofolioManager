@@ -1,0 +1,85 @@
+﻿Dividends,Header,Currency,Date,Description,Amount
+Dividends,Data,EUR,2020-01-07,REE(ES0173093024) Cash Dividend EUR 0.2727 per Share (Ordinary Dividend),204.53
+Dividends,Data,EUR,2020-03-12,ACS(ES06670509G4) Expire Dividend Right (Ordinary Dividend),10.78
+Dividends,Data,EUR,2020-03-12,ACS(ES06670509G4) Expire Dividend Right - REVERSAL (Ordinary Dividend),-10.78
+Dividends,Data,EUR,2020-03-12,ACS(ES06670509G4) Expire Dividend Right (Ordinary Dividend),10.78
+Dividends,Data,EUR,2020-03-13,ACS(ES06670509G4) Expire Dividend Right (Ordinary Dividend),10.78
+Dividends,Data,EUR,2020-03-13,ACS(ES06670509G4) Expire Dividend Right - REVERSAL (Ordinary Dividend),-10.78
+Dividends,Data,EUR,2020-03-16,ACS(ES06670509G4) Expire Dividend Right (Ordinary Dividend),10.78
+Dividends,Data,EUR,2020-03-16,ACS(ES06670509G4) Expire Dividend Right (Ordinary Dividend),-10.78
+Dividends,Data,EUR,2020-03-18,UNA(NL0000388619) Cash Dividend EUR 0.4104 per Share (Ordinary Dividend),12.31
+Dividends,Data,EUR,2020-03-26,URW(FR0013326246) Cash Dividend EUR 5.40 per Share (Ordinary Dividend),378
+Dividends,Data,EUR,2020-05-04,BAYN(DE000BAY0017) Cash Dividend EUR 2.80 per Share (Ordinary Dividend),420
+Dividends,Data,EUR,2020-06-04,UNA(NL0000388619) Cash Dividend EUR 0.4104 per Share (Ordinary Dividend),24.62
+Dividends,Data,EUR,2020-06-23,BAS(DE000BASF111) Cash Dividend EUR 3.30 per Share (Ordinary Dividend),495
+Dividends,Data,EUR,2020-06-25,MAP(ES0124244E34) Cash Dividend EUR 0.0858 per Share (Ordinary Dividend),343.2
+Dividends,Data,EUR,2020-07-01,REE(ES0173093024) Cash Dividend EUR 0.7792 per Share (Ordinary Dividend),584.4
+Dividends,Data,EUR,2020-07-06,ACS(ES0167050915) Cash Dividend EUR 0.16 per Share (Ordinary Dividend),48.48
+Dividends,Data,EUR,2020-07-09,ACS(ES06670509H2) Expire Dividend Right (Ordinary Dividend),418.14
+Dividends,Data,EUR,2020-07-09,ENG(ES0130960018) Cash Dividend EUR 0.9304 per Share (Ordinary Dividend),395.42
+Dividends,Data,EUR,2020-07-09,ENG(ES0130960018) Cash Dividend EUR 0.0296 per Share (Bonus Dividend),12.58
+Dividends,Data,EUR,2020-07-13,DAI(DE0007100000) Cash Dividend EUR 0.90 per Share (Ordinary Dividend),157.5
+Dividends,Data,EUR,2020-07-13,TEF(ES06784309C1) Expire Dividend Right (Ordinary Dividend),193
+Dividends,Data,EUR,2020-08-04,IBE(ES06445809K4) Expire Dividend Right (Ordinary Dividend),232
+Dividends,Data,EUR,2020-09-09,UNA(NL0000388619) Cash Dividend EUR 0.4104 per Share (Ordinary Dividend),41.04
+Dividends,Data,EUR,2020-11-20,UNA(NL0000388619) Cash Dividend EUR 0.4104 per Share (Ordinary Dividend),41.04
+Dividends,Data,EUR,2020-12-22,MAP(ES0124244E34) Cash Dividend EUR 0.0505 per Share (Ordinary Dividend),202
+Dividends,Data,EUR,2020-12-23,ENG(ES0130960018) Cash Dividend EUR 0.672 per Share (Ordinary Dividend),285.6
+Dividends,Data,EUR,2020-12-30,TEF(ES06784309D9) Expire Dividend Right (Ordinary Dividend),194
+Dividends,Data,EUR,2020-12-30,TEF(ES06784309D9) Expire Dividend Right (Ordinary Dividend),-194
+Dividends,Data,EUR,2020-12-30,TEF(ES06784309D9) Expire Dividend Right (Ordinary Dividend),194
+Dividends,Data,EUR,2021-01-07,REE(ES0173093024) Cash Dividend EUR 0.2727 per Share (Ordinary Dividend),204.53
+Dividends,Data,GBP,2020-03-25,ISF(IE0005042456) Cash Dividend GBP 0.0635 per Share (Mixed Income),85.73
+Dividends,Data,GBP,2020-06-24,ISF(IE0005042456) Cash Dividend GBP 0.0426 per Share (Mixed Income),63.9
+Dividends,Data,GBP,2020-09-30,ISF(13444223) Cash Dividend GBP 0.0573 per Share (Ordinary Dividend),85.95
+Dividends,Data,GBP,2020-12-23,ISF(IE0005042456) Cash Dividend GBP 0.0345 per Share (Mixed Income),51.75
+Dividends,Data,USD,2020-01-10,PM(US7181721090) Cash Dividend USD 1.17 per Share (Ordinary Dividend),93.6
+Dividends,Data,USD,2020-01-15,O(US7561091049) Cash Dividend USD 0.2275 per Share (Ordinary Dividend),11.38
+Dividends,Data,USD,2020-02-03,T(US00206R1023) Cash Dividend USD 0.52 per Share (Ordinary Dividend),130
+Dividends,Data,USD,2020-02-14,O(US7561091049) Cash Dividend USD 0.2325 per Share (Ordinary Dividend),11.63
+Dividends,Data,USD,2020-02-18,PG(US7427181091) Cash Dividend USD 0.7459 per Share (Ordinary Dividend),33.57
+Dividends,Data,USD,2020-02-28,PEAK(US42250P1030) Cash Dividend USD 0.37 per Share (Ordinary Dividend),48.47
+Dividends,Data,USD,2020-03-10,CVX(US1667641005) Cash Dividend USD 1.29 per Share (Ordinary Dividend),50.31
+Dividends,Data,USD,2020-03-10,JNJ(US4781601046) Cash Dividend USD 0.95 per Share (Ordinary Dividend),4.75
+Dividends,Data,USD,2020-03-13,O(US7561091049) Cash Dividend USD 0.2325 per Share (Ordinary Dividend),11.63
+Dividends,Data,USD,2020-03-16,MCD(US5801351017) Cash Dividend USD 1.25 per Share (Ordinary Dividend),6.25
+Dividends,Data,USD,2020-04-01,KO(US1912161007) Cash Dividend USD 0.41 per Share (Ordinary Dividend),5.33
+Dividends,Data,USD,2020-04-09,PM(US7181721090) Cash Dividend USD 1.17 per Share (Ordinary Dividend),93.6
+Dividends,Data,USD,2020-04-15,O(US7561091049) Cash Dividend USD 0.233 per Share (Ordinary Dividend),11.65
+Dividends,Data,USD,2020-05-01,T(US00206R1023) Cash Dividend USD 0.52 per Share (Ordinary Dividend),130
+Dividends,Data,USD,2020-05-15,O(US7561091049) Cash Dividend USD 0.233 per Share (Ordinary Dividend),11.65
+Dividends,Data,USD,2020-05-15,PG(US7427181091) Cash Dividend USD 0.7907 per Share (Ordinary Dividend),35.58
+Dividends,Data,USD,2020-05-19,PEAK(US42250P1030) Cash Dividend USD 0.37 per Share (Ordinary Dividend),48.47
+Dividends,Data,USD,2020-06-09,JNJ(US4781601046) Cash Dividend USD 1.01 per Share (Ordinary Dividend),5.05
+Dividends,Data,USD,2020-06-10,CVX(US1667641005) Cash Dividend USD 1.29 per Share (Ordinary Dividend),64.5
+Dividends,Data,USD,2020-06-15,MCD(US5801351017) Cash Dividend USD 1.25 per Share (Ordinary Dividend),6.25
+Dividends,Data,USD,2020-06-15,O(US7561091049) Cash Dividend USD 0.233 per Share (Ordinary Dividend),13.98
+Dividends,Data,USD,2020-07-01,KO(US1912161007) Cash Dividend USD 0.41 per Share (Ordinary Dividend),22.55
+Dividends,Data,USD,2020-07-10,PM(US7181721090) Cash Dividend USD 1.17 per Share (Ordinary Dividend),93.6
+Dividends,Data,USD,2020-07-15,O(US7561091049) Cash Dividend USD 0.2335 per Share (Ordinary Dividend),23.35
+Dividends,Data,USD,2020-08-03,T(US00206R1023) Cash Dividend USD 0.52 per Share (Ordinary Dividend),130
+Dividends,Data,USD,2020-08-14,O(US7561091049) Cash Dividend USD 0.2335 per Share (Ordinary Dividend),23.35
+Dividends,Data,USD,2020-08-17,PG(US7427181091) Cash Dividend USD 0.7907 per Share (Ordinary Dividend),35.58
+Dividends,Data,USD,2020-08-25,PEAK(US42250P1030) Cash Dividend USD 0.37 per Share (Ordinary Dividend),48.47
+Dividends,Data,USD,2020-09-08,JNJ(US4781601046) Cash Dividend USD 1.01 per Share (Ordinary Dividend),8.08
+Dividends,Data,USD,2020-09-10,CVX(US1667641005) Cash Dividend USD 1.29 per Share (Ordinary Dividend),64.5
+Dividends,Data,USD,2020-09-15,MCD(US5801351017) Cash Dividend USD 1.25 per Share (Ordinary Dividend),6.25
+Dividends,Data,USD,2020-09-15,O(US7561091049) Cash Dividend USD 0.2335 per Share (Ordinary Dividend),23.35
+Dividends,Data,USD,2020-10-01,KO(US1912161007) Cash Dividend USD 0.41 per Share (Ordinary Dividend),22.55
+Dividends,Data,USD,2020-10-07,VFEM(IE00B3VVMM84) Cash Dividend USD 0.649445 per Share (Mixed Income),16.24
+Dividends,Data,USD,2020-10-13,PM(US7181721090) Cash Dividend USD 1.20 per Share (Ordinary Dividend),96
+Dividends,Data,USD,2020-10-15,O(US7561091049) Cash Dividend USD 0.234 per Share (Ordinary Dividend),23.4
+Dividends,Data,USD,2020-11-02,T(US00206R1023) Cash Dividend USD 0.52 per Share (Ordinary Dividend),130
+Dividends,Data,USD,2020-11-13,O(US7561091049) Cash Dividend USD 0.234 per Share (Ordinary Dividend),23.4
+Dividends,Data,USD,2020-11-16,PG(US7427181091) Cash Dividend USD 0.7907 per Share (Ordinary Dividend),35.58
+Dividends,Data,USD,2020-11-23,PEAK(US42250P1030) Cash Dividend USD 0.37 per Share (Ordinary Dividend),48.47
+Dividends,Data,USD,2020-12-08,JNJ(US4781601046) Cash Dividend USD 1.01 per Share (Ordinary Dividend),17.17
+Dividends,Data,USD,2020-12-10,CVX(US1667641005) Cash Dividend USD 1.29 per Share (Ordinary Dividend),64.5
+Dividends,Data,USD,2020-12-15,KO(US1912161007) Cash Dividend USD 0.41 per Share (Ordinary Dividend),22.55
+Dividends,Data,USD,2020-12-15,O(US7561091049) Cash Dividend USD 0.234 per Share (Ordinary Dividend),23.4
+Dividends,Data,USD,2020-12-23,WITS(IE00BJ5JNY98) Cash Dividend USD 0.0204 per Share (Mixed Income),1.02
+Dividends,Data,USD,2020-12-30,VFEM(IE00B3VVMM84) Cash Dividend USD 0.133582 per Share (Mixed Income),10.02
+Dividends,Data,USD,2021-01-11,PM(US7181721090) Cash Dividend USD 1.20 per Share (Ordinary Dividend),96
+Dividends,Data,USD,2021-01-15,O(US7561091049) Cash Dividend USD 0.2345 per Share (Ordinary Dividend),23.45
+Dividends,Data,USD,2021-02-01,T(US00206R1023) Cash Dividend USD 0.52 per Share (Ordinary Dividend),100.36
+Dividends,Data,USD,2021-02-01,T(US00206R1023) Payment in Lieu of Dividend (Ordinary Dividend),29.64

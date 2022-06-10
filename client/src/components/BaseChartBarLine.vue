@@ -24,16 +24,19 @@ export default {
             {
                 x: this.barChartData[0],
                 y: this.barChartData[1],
+                name: 'Yearly added Funds',
                 type:"bar"
             },
             {
                 x: this.barChartData[0],
                 y: this.barChartData[2],
+                name: 'Total added funds',
                 type:"scatter"
             },
             {
                 x: this.barChartData[0],
                 y: this.barChartData[3],
+                name: 'Portofolio value',
                 type:"scatter"
             },
         ],
@@ -41,6 +44,8 @@ export default {
             title: this.MyChartTitle,
             yaxis:{title:{text:this.yaxisTitle}},
             xaxis:{title:{text:this.xaxisTitle}},
+            showlegend: true,
+            // legend: {"orientation": "h"},
             width: 1000,
             height: 800,
         },

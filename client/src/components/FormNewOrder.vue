@@ -3,8 +3,6 @@
 <!------------------------------------------------------------------------>
 <template>
 <div>
-<b-button v-b-toggle.FormNewOrder class="btn_toggle"><b-icon icon="arrow-down-circle-fill"></b-icon> New Order</b-button>
-<b-collapse id="FormNewOrder" class="mt-2">
   <b-form inline id="NewOrder" @submit="onSubmit">
         <div class="group">
             <label class="sr-only" for="inline-form-input-name">Order type:</label>
@@ -62,8 +60,6 @@
 
         <b-button id="submitNewOrder" type="submit" variant="primary">Add new order</b-button>
   </b-form>
-</b-collapse>
-<hr>
 </div>
 </template>
 

@@ -5,10 +5,10 @@ from datetime import datetime
 import pandas as pd
 
 # python scripts imports
-from portofolioDividends import getPortofolioDividends
 from s_portofolioUpdate import getUpdatedPortofolio, getPortofolioPieChart
-from s_historicPerfomance import getHistoricPortofolioChart
+from s_historicPerfomance import getHistoricPortofolioChart, getHistoricDividends
 from s_newOrder import getNewOrderCurrencyRate
+from s_dataManagement import ImportAnualDividends
 
 # ---------------------------------------------------------------------------------
 # --------------------------------- CONFIGURATION ---------------------------------
@@ -82,12 +82,23 @@ class HistoricPortofolio(db.Model):
     __tablename__='historicPortofolio'
 
     id = db.Column(db.Integer, primary_key=True)
-    Year =db.Column(db.Integer, unique=True, nullable=False)
+    Year = db.Column(db.Integer, unique=True, nullable=False)
     Deposit = db.Column(db.Float, unique=False, nullable=False)
     Withdraw = db.Column(db.Float, unique=False, nullable=False)
     NetDeposit = db.Column(db.Float, unique=False, nullable=False)
     PortofolioVaue = db.Column(db.Float, unique=False, nullable=False)
 
+class HistoricDividends(db.Model):
+    __tablename__='historicDividends'
+
+    id = db.Column(db.Integer, primary_key=True)
+    Date = db.Column(db.DateTime, nullable=False)
+    MyTicker = db.Column(db.String(10), unique=False, nullable=False)
+    Currency = db.Column(db.String(10), unique=False, nullable=False)
+    Amount = db.Column(db.Float, unique=False, nullable=False)
+    AmountEuro = db.Column(db.Float, unique=False, nullable=False)
+
+    
 # only run db.create_all() if ddbb is not yet created or need to create a new table
 # db.create_all()
 
@@ -161,21 +172,20 @@ def getPortofolioCharts():
 # --------------------------- HISTORIC PERFORMANCE VIEW -------------------------------------
 
 # get HISTORIC DIVIDEND DATA. SEND TO "ViewDividends.vue"
-@app.route('/historicPortofolio', methods=['GET', 'POST'])
-def getHistoricPortofolio():
-
+@app.route('/historicInformation', methods=['GET'])
+def getHistoricData():
     HistoricPortofolio_table = HistoricPortofolio.query.all()
+    HistoricDividend_table = HistoricDividends.query.all()
 
-    data = getHistoricPortofolioChart(HistoricPortofolio_table)
+    PortofolioData = getHistoricPortofolioChart(HistoricPortofolio_table)
+    DividendData = getHistoricDividends(HistoricDividend_table)
+
+    YieldCost = (DividendData[3]/PortofolioData[5])*100
+    YieldCost = "{:.1f} %".format(YieldCost)
+
+    data=[PortofolioData, DividendData, YieldCost]
 
     return jsonify(data)
-
-@app.route('/historicDividends', methods=['GET'])
-def getHisotoricDividends():
-    historicDividends=getPortofolioDividends() #funciton imported from portofolioDivindeds.py
-
-    return jsonify(historicDividends)
-
 
 # --------------------------- STOCK ANALSYIS VIEW -------------------------------------
 
@@ -286,6 +296,38 @@ def updateportofolio():
         db.session.commit()
 
     return jsonify('portofolio updated')
+
+# Add NEW YEAR OF DIVIDENDS. Get data from FormImportAnualDividends.vue and adds it to the ddbb (table HistoricDividedns
+@app.route('/addAnualDividends', methods=['GET', 'POST'])
+def addAnualDividends():
+    # get data from post request (vue sends data)
+    postData=request.get_json(force=True)
+
+    # call python script located in s_dataManagement.py
+    AnnualDividendList = ImportAnualDividends(postData)
+
+    # stores returned data in sqlite ddbb
+    for row in AnnualDividendList:
+        NewAnualDividend=HistoricDividends(
+            Date = row[0],
+            MyTicker = row[1],
+            Currency = row[2],
+            Amount = row[3],
+            AmountEuro = row[5]
+        )
+
+        db.session.add(NewAnualDividend)
+        db.session.commit()
+
+    return jsonify('Annual dividends added to database')
+
+
+# ----------------------------------- TEST route ------------------------------------
+@app.route('/test', methods=['GET', 'POST'])
+def test():
+
+
+    return jsonify('hello')
 
 # ---------------------------------------------------------------------------------
 # ----------------------------------- APP.RUN -------------------------------------

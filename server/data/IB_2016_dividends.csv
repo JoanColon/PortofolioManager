@@ -1,0 +1,82 @@
+﻿Dividends,Header,Currency,Date,Description,Amount
+Dividends,Data,EUR,2015-12-15,MAP(ES0124244E34) Cash Dividend 0.06000000 EUR per Share (Ordinary Dividend),133.8
+Dividends,Data,EUR,2015-12-17,ENG(ES0130960018) Cash Dividend 0.52800000 EUR per Share (Ordinary Dividend),105.6
+Dividends,Data,EUR,2015-12-30,IQQA(DE000A0HG2P4) Cash Dividend 0.03560000 EUR per Share (Ordinary Dividend),1.07
+Dividends,Data,EUR,2016-01-04,REE(ES0173093115) Cash Dividend 0.89060000 EUR per Share (Ordinary Dividend),13.36
+Dividends,Data,EUR,2016-02-01,SAN(ES0113900J37) Cash Dividend 0.05000000 EUR per Share (Ordinary Dividend),50.45
+Dividends,Data,EUR,2016-03-29,IQQA(DE000A0HG2P4) Cash Dividend 0.08050000 EUR per Share (Ordinary Dividend),2.42
+Dividends,Data,EUR,2016-04-19,ABE(ES0111845014) Cash Dividend 0.36000000 EUR per Share (Ordinary Dividend),144
+Dividends,Data,EUR,2016-05-03,SAN(ES0113900J37) Cash Dividend 0.05000000 EUR per Share (Ordinary Dividend),79.2
+Dividends,Data,EUR,2016-05-06,BME(ES0115056139) Cash Dividend 0.93000000 EUR per Share (Ordinary Dividend),176.7
+Dividends,Data,EUR,2016-05-13,TEF(ES0178430E18) Cash Dividend 0.40000000 EUR per Share (Ordinary Dividend),221.2
+Dividends,Data,EUR,2016-05-13,TEF(ES0178430E18) Cash Dividend 0.40000000 EUR per Share - Reversal (Ordinary Div - NRA Withholding Exempt),-221.2
+Dividends,Data,EUR,2016-05-19,TEF(ES0178430E18) Cash Dividend 0.40000000 EUR per Share (Ordinary Div - NRA Withholding Exempt),221.2
+Dividends,Data,EUR,2016-06-24,MAP(ES0124244E34) Cash Dividend 0.07000000 EUR per Share (Ordinary Dividend),210
+Dividends,Data,EUR,2016-06-29,IDVY(IE00B0M62S72) Cash Dividend 0.69620000 EUR per Share (Ordinary Dividend),20.89
+Dividends,Data,EUR,2016-07-01,REE(ES0173093115) Cash Dividend 2.31940000 EUR per Share (Ordinary Dividend),69.58
+Dividends,Data,EUR,2016-07-05,ENG(ES0130960018) Cash Dividend 0.79200000 EUR per Share (Ordinary Dividend),158.4
+Dividends,Data,EUR,2016-08-01,SAN(ES0113900J37) Cash Dividend 0.05500000 EUR per Share (Ordinary Dividend),87.12
+Dividends,Data,EUR,2016-09-16,BME(ES0115056139) Cash Dividend 0.40000000 EUR per Share (Ordinary Dividend),94
+Dividends,Data,EUR,2016-09-30,IDVY(IE00B0M62S72) Cash Dividend 0.07120000 EUR per Share (Ordinary Dividend),4.27
+Dividends,Data,EUR,2016-11-02,ABE(ES0111845014) Cash Dividend 0.36000000 EUR per Share (Ordinary Dividend),151.2
+Dividends,Data,EUR,2016-12-22,ENG(ES0130960018) Cash Dividend 0.55600000 EUR per Share (Ordinary Dividend),139
+Dividends,Data,EUR,2016-12-23,MAP(ES0124244E34) Cash Dividend 0.06060000 EUR per Share (Ordinary Dividend),196.95
+Dividends,Data,GBP,2016-06-29,ISFA(IE0005042456) Cash Dividend 0.08840000 GBP per Share (Ordinary Dividend),12.38
+Dividends,Data,GBP,2016-09-30,ISF(IE0005042456) Cash Dividend 0.07880000 GBP per Share (Ordinary Dividend),0.08
+Dividends,Data,GBP,2016-09-30,ISF(IE0005042456) Payment in Lieu of Dividend (Ordinary Dividend),13.71
+Dividends,Data,USD,2016-01-08,PM(US7181721090) Cash Dividend 1.02000000 USD per Share (Ordinary Dividend),35.71
+Dividends,Data,USD,2016-01-08,PM(US7181721090) Cash Dividend 1.02000000 USD per Share - Reversal (Mixed Income),-35.71
+Dividends,Data,USD,2016-01-08,PM(US7181721090) Cash Dividend 1.02000000 USD per Share (Mixed Income),35.7
+Dividends,Data,USD,2016-01-14,VNR(US92205F1066) Cash Dividend 0.03000000 USD per Share (Ordinary Dividend),1.35
+Dividends,Data,USD,2016-01-15,O(US7561091049) Cash Dividend 0.19100000 USD per Share (Ordinary Dividend),5.15
+Dividends,Data,USD,2016-02-01,T(US00206R1023) Cash Dividend 0.48000000 USD per Share (Ordinary Dividend),48
+Dividends,Data,USD,2016-02-04,POT(CA73755L1076) Cash Dividend USD 0.38000000 (Ordinary Dividend),12.16
+Dividends,Data,USD,2016-02-12,VNR(US92205F1066) Cash Dividend 0.03000000 USD per Share (Ordinary Dividend),1.35
+Dividends,Data,USD,2016-02-15,KMI(US49456B1017) Cash Dividend 0.12500000 USD per Share (Ordinary Dividend),3.75
+Dividends,Data,USD,2016-02-16,O(US7561091049) Cash Dividend 0.19850000 USD per Share (Ordinary Dividend),5.36
+Dividends,Data,USD,2016-02-23,HCP(US40414L1098) Cash Dividend USD 0.57500000 (Ordinary Dividend),57.51
+Dividends,Data,USD,2016-03-09,UL(US9047677045) Cash Dividend 0.32960000 USD per Share (Ordinary Dividend),8.25
+Dividends,Data,USD,2016-03-10,CVX(US1667641005) Cash Dividend 1.07000000 USD per Share (Ordinary Dividend),41.73
+Dividends,Data,USD,2016-03-15,MCD(US5801351017) Cash Dividend 0.89000000 USD per Share (Ordinary Dividend),4.45
+Dividends,Data,USD,2016-03-15,O(US7561091049) Cash Dividend 0.19850000 USD per Share (Ordinary Dividend),5.36
+Dividends,Data,USD,2016-03-15,VNR(US92205F1066) Cash Dividend 0.03000000 USD per Share (Ordinary Dividend),1.35
+Dividends,Data,USD,2016-04-01,KO(US1912161007) Cash Dividend 0.35000000 USD per Share (Ordinary Dividend),4.55
+Dividends,Data,USD,2016-04-11,PM(US7181721090) Cash Dividend 1.02000000 USD per Share (Mixed Income),35.7
+Dividends,Data,USD,2016-04-15,O(US7561091049) Cash Dividend 0.19900000 USD per Share (Ordinary Dividend),5.38
+Dividends,Data,USD,2016-05-02,T(US00206R1023) Cash Dividend 0.48000000 USD per Share (Ordinary Dividend),48
+Dividends,Data,USD,2016-05-03,POT(CA73755L1076) Cash Dividend USD 0.25000000 (Ordinary Dividend),8
+Dividends,Data,USD,2016-05-16,KMI(US49456B1017) Cash Dividend 0.12500000 USD per Share (Ordinary Dividend),3.75
+Dividends,Data,USD,2016-05-16,O(US7561091049) Cash Dividend 0.19900000 USD per Share (Ordinary Dividend),5.38
+Dividends,Data,USD,2016-05-24,HCP(US40414L1098) Cash Dividend USD 0.57500000 (Ordinary Dividend),23
+Dividends,Data,USD,2016-05-24,HCP(US40414L1098) Cash Dividend USD 0.57500000 (Ordinary Dividend),46
+Dividends,Data,USD,2016-06-01,UL(US9047677045) Cash Dividend 0.36480000 USD per Share (Ordinary Dividend),9.13
+Dividends,Data,USD,2016-06-10,CVX(US1667641005) Cash Dividend 1.07000000 USD per Share (Ordinary Dividend),41.73
+Dividends,Data,USD,2016-06-15,O(US7561091049) Cash Dividend 0.19900000 USD per Share (Ordinary Dividend),5.38
+Dividends,Data,USD,2016-06-20,MCD(US5801351017) Cash Dividend 0.89000000 USD per Share (Ordinary Dividend),4.45
+Dividends,Data,USD,2016-07-01,KO(US1912161007) Cash Dividend 0.35000000 USD per Share (Ordinary Dividend),4.55
+Dividends,Data,USD,2016-07-11,PM(US7181721090) Cash Dividend 1.02000000 USD per Share (Mixed Income),35.7
+Dividends,Data,USD,2016-07-15,O(US7561091049) Cash Dividend 0.19950000 USD per Share (Ordinary Dividend),5.39
+Dividends,Data,USD,2016-08-01,T(US00206R1023) Cash Dividend 0.48000000 USD per Share (Ordinary Dividend),48
+Dividends,Data,USD,2016-08-02,POT(CA73755L1076) Cash Dividend USD 0.25000000 (Ordinary Dividend),0.75
+Dividends,Data,USD,2016-08-02,POT(CA73755L1076) Cash Dividend USD 0.25000000 (Ordinary Dividend),7.25
+Dividends,Data,USD,2016-08-15,KMI(US49456B1017) Cash Dividend 0.12500000 USD per Share (Ordinary Dividend),3.75
+Dividends,Data,USD,2016-08-15,O(US7561091049) Cash Dividend 0.19950000 USD per Share (Ordinary Dividend),5.39
+Dividends,Data,USD,2016-08-23,HCP(US40414L1098) Cash Dividend USD 0.57500000 (Ordinary Dividend),69
+Dividends,Data,USD,2016-09-07,UL(US9047677045) Cash Dividend 0.35310000 USD per Share (Ordinary Dividend),8.83
+Dividends,Data,USD,2016-09-12,CVX(US1667641005) Cash Dividend 1.07000000 USD per Share (Ordinary Dividend),41.73
+Dividends,Data,USD,2016-09-15,O(US7561091049) Cash Dividend 0.20150000 USD per Share (Ordinary Dividend),5.44
+Dividends,Data,USD,2016-09-16,MCD(US5801351017) Cash Dividend 0.89000000 USD per Share (Ordinary Dividend),4.45
+Dividends,Data,USD,2016-10-03,KO(US1912161007) Cash Dividend 0.35000000 USD per Share (Ordinary Dividend),4.55
+Dividends,Data,USD,2016-10-13,PM(US7181721090) Cash Dividend 1.04000000 USD per Share (Mixed Income),36.4
+Dividends,Data,USD,2016-10-17,O(US7561091049) Cash Dividend 0.20200000 USD per Share (Ordinary Dividend),5.46
+Dividends,Data,USD,2016-11-01,T(US00206R1023) Cash Dividend 0.48000000 USD per Share (Ordinary Dividend),48
+Dividends,Data,USD,2016-11-02,POT(CA73755L1076) Cash Dividend USD 0.10000000 (Ordinary Dividend),2.81
+Dividends,Data,USD,2016-11-02,POT(CA73755L1076) Cash Dividend USD 0.10000000 (Ordinary Dividend),0.4
+Dividends,Data,USD,2016-11-15,KMI(US49456B1017) Cash Dividend 0.12500000 USD per Share (Ordinary Dividend),3.75
+Dividends,Data,USD,2016-11-15,O(US7561091049) Cash Dividend 0.20200000 USD per Share (Ordinary Dividend),5.46
+Dividends,Data,USD,2016-11-25,HCP(US40414L1098) Cash Dividend USD 0.37000000 (Ordinary Dividend),48.47
+Dividends,Data,USD,2016-12-07,UL(US9047677045) Cash Dividend 0.35460000 USD per Share (Ordinary Dividend),8.87
+Dividends,Data,USD,2016-12-12,CVX(US1667641005) Cash Dividend 1.08000000 USD per Share (Ordinary Dividend),42.12
+Dividends,Data,USD,2016-12-15,KO(US1912161007) Cash Dividend 0.35000000 USD per Share (Ordinary Dividend),4.55
+Dividends,Data,USD,2016-12-15,MCD(US5801351017) Cash Dividend 0.94000000 USD per Share (Ordinary Dividend),4.71
+Dividends,Data,USD,2016-12-15,O(US7561091049) Cash Dividend 0.20200000 USD per Share (Ordinary Dividend),5.46

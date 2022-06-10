@@ -55,7 +55,7 @@
       <!----------------------------------------------------------------------------------->
       <!--------------------------- HISTORIC DIVIDENDS TAB -------------------------------->
       <!----------------------------------------------------------------------------------->
-      <b-tab title="Dividends" @click="getPortofolioDividendData()">
+      <b-tab title="Dividends">
         <b-row>
           <b-col>
           <!-- Chart of total dividend per year -->
@@ -118,19 +118,19 @@ export default {
       // data for total dividends receied BaseCard
       TotalDividendsImage:'Dividends.png',
       TotalDividendsTitle:'Total dividends received: ',
-      TotalDividendsValue:'35000',
+      TotalDividendsValue:'',
 
       // data for Yield on Cost BaseCard
       YieldOnCostImage:'Yield.png',
       YieldOnCostTitle:'Yield on Cost: ',
-      YieldOnCostValue:'5.5%',
+      YieldOnCostValue:'',
 
       // --------------------------- HISTORIC PORTOFOLIO DATA  ------------------------------------ //
       // data for the bar/line chart
       HistoricChartData:[],
       HistoricChartTitle:'Historic perfomance of the portofolio',
-      Historic_xaxisTitle:'year',
-      Historic_yaxisTitle:'€',
+      Historic_xaxisTitle:'Year',
+      Historic_yaxisTitle:'Euros (€)',
 
       // --------------------------- HISTORIC DIVIDEND DATA  ------------------------------------ //
       // data for the bar chart
@@ -142,8 +142,8 @@ export default {
       // data for the dividend table
       dividendCompany: [], //dividend received by company
       dividendCompanyFields:[
-        {key:'Tickers', sortable: true },
-        {key:'Amount_euro', sortable: true, label:'Amount (€)' },
+        {key:'MyTicker', sortable: true },
+        {key:'AmountEuro', sortable: true, label:'Amount (€)' },
         ],
 
       //to prevent that the chart and the table are rendered before receiving the data
@@ -152,31 +152,31 @@ export default {
   },
   methods:{
     // call to flask to get historic portofolio data
-    async getHistoricPortofolioData(){
+    async getHistoricData(){
       try{
         this.isLoading = true
-        const path = 'http://localhost:5000/historicPortofolio'; //path to flask route
+        
+        const path = 'http://localhost:5000/historicInformation'; //path to flask route
         let {data} = await axios.get(path)
-        this.HistoricChartData=data
-        this.AddedFundsValue=data[4]
+
+        // Portofolio data = data[0] from axios call
+        this.HistoricChartData=data[0]
+        this.AddedFundsValue=data[0][4]
+
+        // Dividned data = data[1] from axios call
+        this.dividendCompany = data[1][0]; //dividendCompany is the variable (empty list) defined in data() section, gets dividend received per company
+        this.dividendYear = data[1][1] //dividendYear is the variable (empty list) defined in data() section, gets dividend received per year
+        this.TotalDividendsValue = data[1][2]
+
+        // Yield on Cost data = data[2] from axios call
+        this.YieldOnCostValue = data[2]
+
         this.isLoading = false
       } catch(error){console.error(error)}
     },
-
-    //call to flack to get dividend data (per year and per company) 
-    async getPortofolioDividendData(){
-      try{
-        this.isLoading = true
-        const path = 'http://localhost:5000/historicDividends'; //path to flask route
-        let {data} = await axios.get(path)
-        this.dividendCompany = data[0]; //dividendCompany is the variable (empty list) defined in data() section, gets dividend received per company
-        this.dividendYear = data[1] //dividendYear is the variable (empty list) defined in data() section, gets dividend received per year
-        this.isLoading = false  
-      } catch(error){console.error(error)}
-    }
   },
   mounted(){
-    this.getHistoricPortofolioData(); //calls the function getHistoricPortofolioData when mounting the view
+    this.getHistoricData(); //calls the function getHistoricPortofolioData when mounting the view
   },
 }
 </script>
