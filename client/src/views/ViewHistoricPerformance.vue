@@ -38,16 +38,25 @@
         <b-row>
           <b-col>
             <BaseChartBarLine
-            v-if='!isLoading' 
+            id='ChartBarLine'
+            v-if='!isLoading'
+            :MyChartTitle='HistoricChartTitle' 
             :barChartData='HistoricChartData' 
-            :MyChartTitle='HistoricChartTitle'
             :yaxisTitle='Historic_yaxisTitle'
             :xaxisTitle='Historic_xaxisTitle' 
             />
           </b-col>
 
-          <b-col>
 
+          <b-col>
+            <h3>Profitability Information</h3>
+            <div class="ProfitabilityDiv">
+              <h4>Total return (€):</h4>
+              <h4>Total return (%):</h4>
+              <h4>Time Weighted Return: {{TWR}}</h4>
+              <h4>Money Weighted Return: </h4>
+              <h4>Annual Rate of return: {{AnualRateReturn}}</h4>
+            </div>
           </b-col>
         </b-row>
       </b-tab>
@@ -59,7 +68,7 @@
         <b-row>
           <b-col>
           <!-- Chart of total dividend per year -->
-            <BaseBarChart 
+            <BaseChartBar 
             v-if='!isLoading' 
             :barChartData='dividendYear' 
             :MyChartTitle='MyChartTitle'
@@ -69,13 +78,14 @@
           </b-col>
 
           <b-col>
+            <h3>Total dividends received by company</h3>
           <!-- Table of total diviend per company -->
             <BaseTable
             id="DividendTable" 
             v-if='!isLoading' 
             :MyTableItems='dividendCompany' 
             :MyTableFields='dividendCompanyFields'
-            :RowPerPage=10
+            :RowPerPage=13
           />
           </b-col>
         </b-row>
@@ -95,7 +105,7 @@ import axios from 'axios';
 // import components
 import BaseCard from '@/components/BaseCard.vue' //@ redirects to src folder
 import BaseChartBarLine from '@/components/BaseChartBarLine.vue'
-import BaseBarChart from '@/components/BaseBarChart.vue' 
+import BaseChartBar from '@/components/BaseChartBar.vue' 
 import BaseTable from '@/components/BaseTable.vue'
 
 
@@ -104,7 +114,7 @@ export default {
   components: {
     BaseCard,
     BaseChartBarLine,
-    BaseBarChart,
+    BaseChartBar,
     BaseTable,
   },
   data(){
@@ -132,19 +142,23 @@ export default {
       Historic_xaxisTitle:'Year',
       Historic_yaxisTitle:'Euros (€)',
 
+      // data for the profitability section
+      TWR: '20%',
+      AnualRateReturn: '5%',
+
       // --------------------------- HISTORIC DIVIDEND DATA  ------------------------------------ //
       // data for the bar chart
       dividendYear:[], //dividends received per year
       MyChartTitle:'Dividends received per year',
-      xaxisTitle:'',
+      xaxisTitle:'Year',
       yaxisTitle:'Gross €/year',
     
       // data for the dividend table
       dividendCompany: [], //dividend received by company
       dividendCompanyFields:[
-        {key:'MyTicker', sortable: true },
+        {key:'MyTicker', sortable: true, label:'Ticker' },
         {key:'AmountEuro', sortable: true, label:'Amount (€)' },
-        ],
+      ],
 
       //to prevent that the chart and the table are rendered before receiving the data
       isLoading: false, 
@@ -198,5 +212,20 @@ export default {
     width:75%;
     margin-left:auto;
     margin-right: auto;
+}
+
+#ChartBarLine{
+  margin-top:0px;
+}
+
+.ProfitabilityDiv{
+  margin-top:60px;
+  margin-left:25px;
+}
+
+h3{
+  margin-top:25px;
+  margin-bottom:25px;
+  text-align: center;
 }
 </style>

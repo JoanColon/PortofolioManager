@@ -3,13 +3,9 @@
 <!------------------------------------------------------------------------>
 <template>
 <div>
-<b-button v-b-toggle.FormUpdatePortofolio class="btn_toggle"><b-icon icon="arrow-down-circle-fill"></b-icon> Update Portofolio</b-button>
-<b-collapse id="FormUpdatePortofolio" class="mt-2">
   <b-form inline id="UpdatePortofolio" @submit="onSubmit">
     <b-button id="SubmitUpdatePortofolio" type="submit" variant="primary">Update Portofolio</b-button>
   </b-form>
-</b-collapse>
-<hr>
 </div>
 </template>
 

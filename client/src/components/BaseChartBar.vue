@@ -14,7 +14,7 @@
 import { Plotly } from 'vue-plotly'
 
 export default {
-    name:'BaseBarChart',
+    name:'BaseChartBar',
     components: {
     Plotly
     },
@@ -26,9 +26,11 @@ export default {
             type:"bar"
         }],
         layout:{
-            title: this.MyChartTitle,
+            title: {text:this.MyChartTitle, font:{size:27}},
             yaxis:{title:{text:this.yaxisTitle}},
             xaxis:{title:{text:this.xaxisTitle}},
+            width: 900,
+            height: 825,
         }
         }
     },

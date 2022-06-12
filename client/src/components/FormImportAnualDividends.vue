@@ -3,8 +3,6 @@
 <!------------------------------------------------------------------------>
 <template>
 <div>
-<b-button v-b-toggle.FormImportAnualDividends class="btn_toggle"><b-icon icon="arrow-down-circle-fill"></b-icon> Import Anual Dividends</b-button>
-<b-collapse id="FormImportAnualDividends" class="mt-2">
     <b-form inline id='InputAnualDividendForm' @submit="onSubmit">
         <div class="group">
             <b-form-file 
@@ -39,8 +37,6 @@
 
         <b-button id="submit-1" type="submit" variant="primary">Add Annual Dividends</b-button>
     </b-form>
-</b-collapse>
-<hr>
 </div>
 </template>
 

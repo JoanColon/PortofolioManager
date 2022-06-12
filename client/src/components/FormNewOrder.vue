@@ -94,7 +94,7 @@ export default {
             try{
                 const path='http://localhost:5000/getTickers'
                 let {data} = await axios.get(path)
-                this.tickerList=data
+                this.tickerList=data.sort()
             } catch(error){console.log(error)}
         },
 

@@ -41,11 +41,11 @@ export default {
             },
         ],
         layout:{
-            title: this.MyChartTitle,
+            title: {text:this.MyChartTitle, font:{size:27}},
             yaxis:{title:{text:this.yaxisTitle}},
             xaxis:{title:{text:this.xaxisTitle}},
             showlegend: true,
-            // legend: {"orientation": "h"},
+            legend: {"orientation": "h", x:0.25},
             width: 1000,
             height: 800,
         },

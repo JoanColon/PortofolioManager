@@ -8,7 +8,7 @@
       <b-card-img 
         :src="require('@/assets/' + imageName + '')" 
         alt="Image" 
-        class="carc-img rounded-0">
+        class="carc-img rounded-0"> 
       </b-card-img>
     </b-row>
     <b-row>
@@ -40,15 +40,16 @@ export default {
   margin-left: 25px;
   margin-right: 25px;
   margin-bottom: 25px;
-  width: 150px;
-  height:200px;
+  width: 200px;
+  height:190px;
   box-shadow: 5px 5px #888888;
 }
 
 .card-img{
-  height:100px;
+  height:80px;
   width:100px;
   display: block;
+  margin-top:15px;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
