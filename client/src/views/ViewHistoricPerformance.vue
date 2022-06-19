@@ -51,11 +51,11 @@
           <b-col>
             <h3>Profitability Information</h3>
             <div class="ProfitabilityDiv">
-              <h4>Total return (€):</h4>
-              <h4>Total return (%):</h4>
-              <h4>Time Weighted Return: {{TWR}}</h4>
-              <h4>Money Weighted Return: </h4>
-              <h4>Annual Rate of return: {{AnualRateReturn}}</h4>
+              <h4>Total Return (€): <strong>{{TotalReturnEuros}}</strong> </h4>
+              <h4>Total Rate of Return (%): <strong>{{TotalReturnPercentage}}</strong></h4>
+              <h4>Time Weighted Return: <strong>{{TimeWeightedReturn}}</strong></h4>
+              <h4>Time Weighted Rate of Return: <strong>{{TimeWeightedRateReturn}}</strong></h4>
+              <h4>Money Weighted Rate of Return: <strong>{{MoneyWeightedRateReturn}}</strong> </h4>
             </div>
           </b-col>
         </b-row>
@@ -143,8 +143,11 @@ export default {
       Historic_yaxisTitle:'Euros (€)',
 
       // data for the profitability section
-      TWR: '20%',
-      AnualRateReturn: '5%',
+      TotalReturnEuros:'',
+      TotalReturnPercentage:'',
+      TimeWeightedReturn: '',
+      TimeWeightedRateReturn:'',
+      MoneyWeightedRateReturn:'',
 
       // --------------------------- HISTORIC DIVIDEND DATA  ------------------------------------ //
       // data for the bar chart
@@ -185,6 +188,13 @@ export default {
         // Yield on Cost data = data[2] from axios call
         this.YieldOnCostValue = data[2]
 
+        // Profitability data = data[3] from axios call
+        this.TotalReturnEuros = data[3][0]
+        this.TotalReturnPercentage = data[3][1]
+        this.TimeWeightedReturn = data[3][2],
+        this.TimeWeightedRateReturn = data[3][3],
+        this.MoneyWeightedRateReturn = data[3][4],
+
         this.isLoading = false
       } catch(error){console.error(error)}
     },
@@ -209,9 +219,9 @@ export default {
 }
 
 #DividendTable{
-    width:75%;
-    margin-left:auto;
-    margin-right: auto;
+  width:75%;
+  margin-left:auto;
+  margin-right: auto;
 }
 
 #ChartBarLine{
@@ -219,9 +229,9 @@ export default {
 }
 
 .ProfitabilityDiv{
-  margin-top:60px;
-  margin-left:25px;
-}
+  margin-top:75px;
+  margin-left:100px;
+  }
 
 h3{
   margin-top:25px;

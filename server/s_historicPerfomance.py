@@ -1,4 +1,7 @@
 import pandas as pd
+import numpy as np
+import numpy_financial as npf
+from scipy.stats import gmean
 
 def getHistoricPortofolioChart(HistoricPortofolio_table):
     # prepre the dataframe from sqlite imported data
@@ -79,3 +82,65 @@ def getHistoricDividends(HistoricDividend_table):
 
     return historicDividends
 
+def getProfitabilityInformation(HistoricPortofolio_table):
+    # ---------------------------------------------------------------------------------------------------------------
+    # ------------------------------- prepare the data from sqlite imported data -------------------------------
+    # ---------------------------------------------------------------------------------------------------------------
+    YearList=[data.Year for data in HistoricPortofolio_table]
+    NetDepositList=[data.NetDeposit for data in HistoricPortofolio_table]
+    FinalValueList=[data.PortofolioVaue for data in HistoricPortofolio_table]
+  
+    # ---------------------------------------------------------------------------------------------------------------
+    # ---------------------------------------- Total Return calculation -----------------------------------------------
+    # ---------------------------------------------------------------------------------------------------------------
+    PortofolioValue = FinalValueList[-1]
+    NetDeposit = np.sum(NetDepositList)
+    
+    TotalReturnEuro = PortofolioValue - NetDeposit
+    TotalReturnPercentage = ((PortofolioValue - NetDeposit) / NetDeposit) * 100
+
+    # ---------------------------------------------------------------------------------------------------------------
+    # ---------------------------------------- TWR & TWRR calculation -----------------------------------------------
+    # ---------------------------------------------------------------------------------------------------------------
+    InitialValueList = [0] # to prevent a division by 0 in year 1
+    for x in FinalValueList[:-1]:
+        InitialValueList.append(x)
+
+    Year_List=[]
+    TWR_List=[]
+    for year in YearList:
+        n = year - YearList[0]
+
+        # TWR formula: https://www.investopedia.com/terms/t/time-weightedror.asp, Net deposit at the beginning of the yera
+        yearTWR = ((FinalValueList[n] - (InitialValueList[n] + NetDepositList[n]))/(InitialValueList[n] + NetDepositList[n])) + 1
+
+        Year_List.append(year)
+        TWR_List.append(yearTWR)
+
+    TWR_List = TWR_List[1:] # Portofolio started Dec '13, calculations will start from 2014 (remove 2013 data, first element of the list)
+
+    TWRvalue = (np.cumprod(TWR_List)[-1] - 1) * 100 # Time Weighted Return (using the cumulative product formula)
+    TWRRvalue = (gmean(TWR_List) - 1) * 100 #Time Weigthed Rate of Return (using the geometric mean formula)
+
+    # ---------------------------------------------------------------------------------------------------------------
+    # -------------------------------------------- MWRR calculation -------------------------------------------------
+    # ---------------------------------------------------------------------------------------------------------------
+    
+    # https://www.investopedia.com/terms/m/money-weighted-return.asp, Cash flow added at the beginning of the year 
+
+    CashFlows = [CashFlow * -1 for CashFlow in NetDepositList]
+    CashFlows.append(FinalValueList[-1])
+    MWRRvalue = npf.irr(CashFlows) * 100
+
+    # ---------------------------------------------------------------------------------------------------------------    
+    # ------------------------------------ values to send to app.py -------------------------------------------------
+    # ---------------------------------------------------------------------------------------------------------------
+    TotalReturnEuros =  "{:,.1f} €".format(TotalReturnEuro)
+    TotalReturnPercentage = "{:.1f} %".format(TotalReturnPercentage)
+    TotalWeightedReturn = "{:.1f} %".format(TWRvalue)
+    TotalWeightedRateReturn = "{:.1f} %".format(TWRRvalue)
+    MoneyWeigthedRateReturn="{:.1f} %".format(MWRRvalue)
+
+    data=[TotalReturnEuros, TotalReturnPercentage, TotalWeightedReturn, TotalWeightedRateReturn, MoneyWeigthedRateReturn]
+
+    return data

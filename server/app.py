@@ -6,7 +6,7 @@ import pandas as pd
 
 # python scripts imports
 from s_portofolioUpdate import getUpdatedPortofolio, getPortofolioPieChart
-from s_historicPerfomance import getHistoricPortofolioChart, getHistoricDividends
+from s_historicPerfomance import getHistoricPortofolioChart, getHistoricDividends, getProfitabilityInformation
 from s_newOrder import getNewOrderCurrencyRate
 from s_dataManagement import ImportAnualDividends
 
@@ -179,11 +179,12 @@ def getHistoricData():
 
     PortofolioData = getHistoricPortofolioChart(HistoricPortofolio_table)
     DividendData = getHistoricDividends(HistoricDividend_table)
+    ProfitabilityData = getProfitabilityInformation(HistoricPortofolio_table)
 
     YieldCost = (DividendData[3]/PortofolioData[5])*100
     YieldCost = "{:.1f} %".format(YieldCost)
 
-    data=[PortofolioData, DividendData, YieldCost]
+    data=[PortofolioData, DividendData, YieldCost, ProfitabilityData]
 
     return jsonify(data)
 
