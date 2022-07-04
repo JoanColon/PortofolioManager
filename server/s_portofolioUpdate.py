@@ -77,6 +77,7 @@ def getUpdatedPortofolio(data):
     ## -------------------- add ['Current price'] column (call to Rapid Api) ----------------------------------
     def StockPriceMap(row):
         print('starting StockPriceMap function')
+        print(row)
         url="https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/" + row
 
         headers = {

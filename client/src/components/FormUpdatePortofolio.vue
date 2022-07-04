@@ -4,6 +4,7 @@
 <template>
 <div>
   <b-form inline id="UpdatePortofolio" @submit="onSubmit">
+    <p>Update the portofolio value, get values from yahoo finance API</p>
     <b-button id="SubmitUpdatePortofolio" type="submit" variant="primary">Update Portofolio</b-button>
   </b-form>
 </div>
@@ -27,7 +28,7 @@ export default {
     methods:{
         async onSubmit(event) {
             try{
-            event.preventDefault()
+            event.preventDefault() // to prevent reloading the page once we press submit button
             const path='http://localhost:5000/updatePortoflio'
             let {data} = await axios.get(path)
             this.message=data

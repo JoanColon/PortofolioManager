@@ -132,6 +132,26 @@ def getProfitabilityInformation(HistoricPortofolio_table):
     CashFlows.append(FinalValueList[-1])
     MWRRvalue = npf.irr(CashFlows) * 100
 
+
+    # ---------------------------------------------------------------------------------------------------------------    
+    # ------------------------------------ Initial Benchmark Chart Data ---------------------------------------------
+    # ---------------------------------------------------------------------------------------------------------------
+    initYear = YearList[0]
+    finalYear = YearList[-1]
+    TotalYears = finalYear - initYear
+
+    initialInvestment = 10000
+    MyBenchmarkList = [initialInvestment]
+    for x in TWR_List:
+        newValue = initialInvestment * x
+        MyBenchmarkList.append(newValue)
+        initialInvestment = newValue
+
+    
+    yAxis = MyBenchmarkList
+    xAxis = list(range(TotalYears + 1))
+    benchmarkData = [xAxis, yAxis]
+
     # ---------------------------------------------------------------------------------------------------------------    
     # ------------------------------------ values to send to app.py -------------------------------------------------
     # ---------------------------------------------------------------------------------------------------------------
@@ -141,6 +161,12 @@ def getProfitabilityInformation(HistoricPortofolio_table):
     TotalWeightedRateReturn = "{:.1f} %".format(TWRRvalue)
     MoneyWeigthedRateReturn="{:.1f} %".format(MWRRvalue)
 
-    data=[TotalReturnEuros, TotalReturnPercentage, TotalWeightedReturn, TotalWeightedRateReturn, MoneyWeigthedRateReturn]
+    data=[TotalReturnEuros, TotalReturnPercentage, TotalWeightedReturn, TotalWeightedRateReturn, MoneyWeigthedRateReturn, benchmarkData]
 
     return data
+
+def getBenchmarkInformation(HistoricPortofolio_table):
+    print(HistoricPortofolio_table)
+
+    
+    return 'hola'

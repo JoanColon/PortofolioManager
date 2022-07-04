@@ -101,7 +101,7 @@ export default {
         // function tu submit the "FormNewOrder" when button is clicked (@submit="onSubmit")
         // sends data to flask, in flask it will store the data in database will return updated data and a text response
         onSubmit(event) {
-            event.preventDefault()
+            event.preventDefault() // to prevent reloading the page once we press submit button
             const path='http://localhost:5000/postNewOrder'
             let postData=this.EnterOrder
             axios.post(path, postData)

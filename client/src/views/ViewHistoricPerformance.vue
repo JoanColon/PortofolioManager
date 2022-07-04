@@ -90,6 +90,42 @@
           </b-col>
         </b-row>
       </b-tab>
+
+      <!----------------------------------------------------------------------------------->
+      <!--------------------------- HISTORIC BENCHMARK TAB -------------------------------->
+      <!----------------------------------------------------------------------------------->
+      <b-tab title="Benchmarks">
+        <b-row>
+          <b-col>
+            <b-row>
+              <div class="SliderRange">
+                <FormBenchmarks/>
+              </div>
+            </b-row>
+
+            <b-row>
+              <BaseChartLine
+                id='ChartLines'
+                v-if='!isLoading'
+                :MyChartTitle='BenchmarkChartTitle' 
+                :lineChartData='BenchmarkChartData' 
+                :yaxisTitle='Benchmark_yaxisTitle'
+                :xaxisTitle='Benchmark_xaxisTitle' 
+              />
+            </b-row>
+          </b-col>
+
+          <b-col>
+              <h3>Compound annual growht rate</h3>
+              <h4>Portofolio CAGR: <strong> </strong></h4>
+              <h4>SP500 CAGR: <strong> </strong></h4>
+              <h4>Euro Stoxx50 CAGR: <strong> </strong></h4>
+              <h4>FTSE100 CAGR: <strong> </strong></h4>
+              <h4>IBEX35 TR CAGR: <strong> </strong></h4>              
+
+          </b-col>
+        </b-row>
+      </b-tab>
     </b-tabs>
   </b-row>
 </div>
@@ -106,16 +142,20 @@ import axios from 'axios';
 import BaseCard from '@/components/BaseCard.vue' //@ redirects to src folder
 import BaseChartBarLine from '@/components/BaseChartBarLine.vue'
 import BaseChartBar from '@/components/BaseChartBar.vue' 
+import BaseChartLine from '@/components/BaseChartLine.vue'
 import BaseTable from '@/components/BaseTable.vue'
+import FormBenchmarks from '@/components/FormBenchmarks.vue'
 
 
 export default {
   name: 'ViewDividends',
   components: {
     BaseCard,
+    BaseTable,
     BaseChartBarLine,
     BaseChartBar,
-    BaseTable,
+    BaseChartLine,
+    FormBenchmarks,
   },
   data(){
     return{
@@ -163,6 +203,13 @@ export default {
         {key:'AmountEuro', sortable: true, label:'Amount (€)' },
       ],
 
+      // --------------------------- BENCHMARK DATA ----------------------------------------------- //
+      // data for the bar/line chart
+      BenchmarkChartData:[],
+      BenchmarkChartTitle:'Benchmark against main Indices',
+      Benchmark_xaxisTitle:'Year',
+      Benchmark_yaxisTitle:'Euros (€)',
+
       //to prevent that the chart and the table are rendered before receiving the data
       isLoading: false, 
     };
@@ -194,6 +241,9 @@ export default {
         this.TimeWeightedReturn = data[3][2],
         this.TimeWeightedRateReturn = data[3][3],
         this.MoneyWeightedRateReturn = data[3][4],
+
+        // Benchmark data
+        this.BenchmarkChartData = data[3][5],
 
         this.isLoading = false
       } catch(error){console.error(error)}
@@ -238,4 +288,5 @@ h3{
   margin-bottom:25px;
   text-align: center;
 }
+
 </style>

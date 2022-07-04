@@ -62,7 +62,7 @@
   <hr>
   <h3>Historic Performance Forms</h3>
   <div class="FormGroup" id="GeneralForms">
-    <!-- Import Anual NAV -->
+    <!-- Import Annual NAV -->
     <BaseCardDataManag
       :imageName='ImageUpdateAnnualNAV'
       :title='TitleUpdateAnnualNAV'
@@ -70,10 +70,9 @@
     />
 
     <b-modal id="modalUpdateAnnualNAV" hide-footer title="Update Annual NAV">
-
     </b-modal>    
 
-    <!-- Import Anual dividends -->
+    <!-- Import Annual dividends -->
     <BaseCardDataManag
       :imageName='ImageImportAnnualDividends'
       :title='TitleImportAnnualDividends'
@@ -82,6 +81,17 @@
 
     <b-modal id="modalImportAnnualDividends" hide-footer title="Import Anual Dividends">
       <FormImportAnualDividends/>
+    </b-modal>
+
+    <!-- Import Annual benchmark -->
+    <BaseCardDataManag
+      :imageName='ImageImportAnnualBenchmark'
+      :title='TitleImportAnnualBenchmark'
+      v-b-modal.modalImportAnnualBenchmark
+    />
+
+    <b-modal id="modalImportAnnualBenchmark" hide-footer title="Add Anual Benchmarks">
+      <FormAddBenchmarks/>
     </b-modal>
 
   </div>
@@ -95,8 +105,11 @@
 // import components
 import FormNewCompany from '@/components/FormNewCompany.vue' //@ redirects to src folder
 import FormNewOrder from '@/components/FormNewOrder.vue'
-import FormImportAnualDividends from '@/components/FormImportAnualDividends.vue'
 import FormUpdatePortofolio from '@/components/FormUpdatePortofolio.vue'
+
+import FormImportAnualDividends from '@/components/FormImportAnualDividends.vue'
+import FormAddBenchmarks from '@/components/FormAddBenchmarks.vue'
+
 import BaseCardDataManag from '@/components/BaseCardDataManag.vue'
 
 export default {
@@ -105,8 +118,10 @@ export default {
     BaseCardDataManag,
     FormNewCompany,
     FormNewOrder,
+    FormUpdatePortofolio,
     FormImportAnualDividends,
-    FormUpdatePortofolio
+    FormAddBenchmarks,
+
   },
   data(){
     return{
@@ -133,6 +148,10 @@ export default {
       // Form Import Anual Dividends
       ImageImportAnnualDividends:'AnualDividends.png',
       TitleImportAnnualDividends:'Import Annual Dividends',
+
+      // Form Import Annual Benchmark
+      ImageImportAnnualBenchmark:'Benchmarks.png',
+      TitleImportAnnualBenchmark:'Add Annual Benchmarks',
     }
   },
   methods:{

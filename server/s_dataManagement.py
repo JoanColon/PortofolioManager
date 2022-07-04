@@ -49,3 +49,4 @@ def ImportAnualDividends(postData):
     AnnualDividendList = df.values.tolist() 
 
     return AnnualDividendList
+

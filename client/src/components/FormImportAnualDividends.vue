@@ -76,7 +76,7 @@ export default {
 
         async onSubmit(event){
             try{
-                event.preventDefault()
+                event.preventDefault() // to prevent reloading the page once we press submit button
                 // this.isLoading = true
                 const path = 'http://localhost:5000/addAnualDividends'
 
