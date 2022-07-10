@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pandas as pd
+import numpy as np
 import json
 
 # python scripts imports
@@ -109,7 +110,7 @@ class Benchmark(db.Model):
 
     
 # only run db.create_all() if ddbb is not yet created or need to create a new table
-db.create_all()
+# db.create_all()
 
 # ---------------------------------------------------------------------------------
 # ----------------------------------- ROUTES --------------------------------------
@@ -199,17 +200,18 @@ def getHistoricData():
     return jsonify(data)
 
 # updates BENCHMARK CHART according to user selection. SEND TO "ViewHistoricPerformance.vue"
-@app.route('/historicBenchmark', methods=['GET'])
+@app.route('/historicBenchmark', methods=['GET','POST'])
 def getHistoricBenchmark():
+   
+    # get data from vue and assign postData received to python variables
+    postData=request.get_json(force=True)
 
-    HistoricPortofolio_table = HistoricPortofolio.query.all()
+    # query ddbb table to get all benchmark data
+    BenchmarkIndex_table = Benchmark.query.all()
 
-    BenchmarkChartData = getBenchmarkInformation(HistoricPortofolio_table)
-
-    data = BenchmarkChartData
-    print(data)
-
-    return jsonify('hello')
+    BenchamarkData = getBenchmarkInformation(postData, BenchmarkIndex_table)
+   
+    return jsonify(BenchamarkData)
 
 # --------------------------- STOCK ANALSYIS VIEW -------------------------------------
 

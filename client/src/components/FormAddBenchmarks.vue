@@ -4,7 +4,7 @@
 <template>
 <div>
   <b-form inline id="NewOrder" @submit="onSubmit">
-    <p>Add the CAGR and the dividend rate in percentage &#40;without the % symbol&#41;</p>
+    <p>Add the Annual Rate of return as numeric &#40;e.g., RoR of 10%, add 1.1&#41;, apply the same approach for the dividend rate</p>
     <!-- year -->
     <div class="group">
         <label for="year"  class="sr-only">Year:</label>
@@ -16,7 +16,7 @@
         </b-form-input>
     </div>
 
-    <!-- to use v-model with nested objects, if is needed to put the v-if, if not, vue returns undified for the nested property -->
+    <!-- to use v-model with nested objects, it is needed to put the v-if, if not, vue returns undified for the nested property -->
 
     <!-- S&P500 -->
     <div class="group">
@@ -25,8 +25,8 @@
             id="SP500"
             class="form_input"
             v-if="Benchmark_dict.FinancialData.sp500"    
-            v-model="Benchmark_dict.FinancialData.sp500.cagr" 
-            placeholder="SP500 CAGR">
+            v-model="Benchmark_dict.FinancialData.sp500.cagr"
+            placeholder="SP500 RoR">
         </b-form-input>
         <b-form-input 
             id="SP500_dividend"
@@ -44,8 +44,8 @@
             id="FTSE100"
             class="form_input"
             v-if="Benchmark_dict.FinancialData.ftse100"   
-            v-model="Benchmark_dict.FinancialData.ftse100.cagr" 
-            placeholder="FTSE100 CAGR">
+            v-model="Benchmark_dict.FinancialData.ftse100.cagr"
+            placeholder="FTSE100 RoR">
         </b-form-input>
         <b-form-input 
             id="FTSE100_dividend"
@@ -64,7 +64,7 @@
             class="form_input"
             v-if="Benchmark_dict.FinancialData.stoxx50"    
             v-model="Benchmark_dict.FinancialData.stoxx50.cagr" 
-            placeholder="EuroStoxx50 CAGR">
+            placeholder="EuroStoxx50 RoR">
         </b-form-input>
         <b-form-input 
             id="EuroStoxx50_dividend"
@@ -83,14 +83,14 @@
             class="form_input"
             v-if="Benchmark_dict.FinancialData.Ibex35TR"     
             v-model="Benchmark_dict.FinancialData.Ibex35TR.cagr" 
-            placeholder="IBEX35 TR CAGR">
+            placeholder="IBEX35TR RoR">
         </b-form-input>
         <b-form-input 
             id="IBEX35_TR_dividend"
             class="form_input"
             v-if="Benchmark_dict.FinancialData.Ibex35TR"      
             v-model="Benchmark_dict.FinancialData.Ibex35TR.dividend" 
-            placeholder="IBEX35 TR dividend">
+            placeholder="IBEX35TR dividend">
         </b-form-input>
     </div>
 

@@ -1,3 +1,4 @@
+import json
 import pandas as pd
 import numpy as np
 import numpy_financial as npf
@@ -132,26 +133,6 @@ def getProfitabilityInformation(HistoricPortofolio_table):
     CashFlows.append(FinalValueList[-1])
     MWRRvalue = npf.irr(CashFlows) * 100
 
-
-    # ---------------------------------------------------------------------------------------------------------------    
-    # ------------------------------------ Initial Benchmark Chart Data ---------------------------------------------
-    # ---------------------------------------------------------------------------------------------------------------
-    initYear = YearList[0]
-    finalYear = YearList[-1]
-    TotalYears = finalYear - initYear
-
-    initialInvestment = 10000
-    MyBenchmarkList = [initialInvestment]
-    for x in TWR_List:
-        newValue = initialInvestment * x
-        MyBenchmarkList.append(newValue)
-        initialInvestment = newValue
-
-    
-    yAxis = MyBenchmarkList
-    xAxis = list(range(TotalYears + 1))
-    benchmarkData = [xAxis, yAxis]
-
     # ---------------------------------------------------------------------------------------------------------------    
     # ------------------------------------ values to send to app.py -------------------------------------------------
     # ---------------------------------------------------------------------------------------------------------------
@@ -161,12 +142,47 @@ def getProfitabilityInformation(HistoricPortofolio_table):
     TotalWeightedRateReturn = "{:.1f} %".format(TWRRvalue)
     MoneyWeigthedRateReturn="{:.1f} %".format(MWRRvalue)
 
-    data=[TotalReturnEuros, TotalReturnPercentage, TotalWeightedReturn, TotalWeightedRateReturn, MoneyWeigthedRateReturn, benchmarkData]
+    data=[TotalReturnEuros, TotalReturnPercentage, TotalWeightedReturn, TotalWeightedRateReturn, MoneyWeigthedRateReturn]
 
     return data
 
-def getBenchmarkInformation(HistoricPortofolio_table):
-    print(HistoricPortofolio_table)
+def getBenchmarkInformation(postData, BenchmarkIndex_table):
+    years = int(postData[0])
+    SelectedBenchmarks = postData[1]
 
+    # create the list of benchmark data to return based on user seleciton, Benchmark Index to show and number of years
+    initialInvestment = 10000.0
+    FinalChartData = []
+    FinalDividendList= []
+    for row in BenchmarkIndex_table:
+        for data in SelectedBenchmarks:
+            if data == row.IndexTicker:
+                # upload string data from ddbb and transforms it into python dict
+                BenchmarkDict = json.loads(row.DictFinancialData)
+
+                #  get year list based on years selected in the range slider (years variable)
+                yearList = [int(year) for year, info in BenchmarkDict.items()]
+                yearList = yearList[-years:]
+                InitialYear = yearList[0] - 1
+                yearList.insert(0, InitialYear)
+
+                # get list of yearly investment value according years selected in the range slider (years variable)
+                cagrList=[float(info['cagr']) for year, info in BenchmarkDict.items()]
+                cagrList = cagrList[-years:]
+                cagrList = np.cumprod(cagrList)
+                IndexPerfomanceList = list(initialInvestment * cagrList)
+                IndexPerfomanceList.insert(0, initialInvestment)
+
+                # get chart Data for selected ticker
+                ChartData = {row.IndexTicker:{'xAxis':yearList, 'yAxis':IndexPerfomanceList}}
+                FinalChartData.append(ChartData)
+
+                # get total dividends during the current year 
+                dividendList = [float(info['dividend']) for year, info in BenchmarkDict.items()]
+                dividendAmount = dividendList[-1] * IndexPerfomanceList[-1] 
+                dividendDict = {row.IndexTicker:dividendAmount}
+                FinalDividendList.append(dividendDict)
     
-    return 'hola'
+    data = [FinalChartData, FinalDividendList]
+   
+    return data

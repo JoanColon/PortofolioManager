@@ -18,6 +18,24 @@
       <FormNewCompany/>
     </b-modal>
 
+  </div>
+
+  <!------------------------ PORTOFOLIO FORMS-------------------------------->
+  <hr>
+  <h3>Portofolio Forms</h3>
+  <div class="FormGroup" id="GeneralForms">
+    
+    <!-- Update Portofolio -->
+    <BaseCardDataManag
+      :imageName='ImagePortofolioUpdate'
+      :title='TitlePortofolioUpdate'
+      v-b-modal.modalPortofolioUpdate
+    />
+
+    <b-modal id="modalPortofolioUpdate" hide-footer title="Update Portofolio">
+        <FormUpdatePortofolio/>
+    </b-modal>
+
     <!-- New Order -->
     <BaseCardDataManag
       :imageName='ImageNewOrder'
@@ -36,25 +54,8 @@
       v-b-modal.modalUpdateDividend
     />
 
-    <b-modal id="modalUpdateDividend" hide-footer title="Update Dividend">
+    <b-modal id="modalUpdateDividend" hide-footer title="Update Dividend"></b-modal>
 
-    </b-modal>
-  </div>
-
-  <!------------------------ PORTOFOLIO FORMS-------------------------------->
-  <hr>
-  <h3>Portofolio Forms</h3>
-  <div class="FormGroup" id="GeneralForms">
-    <!-- Update Portofolio -->
-    <BaseCardDataManag
-      :imageName='ImagePortofolioUpdate'
-      :title='TitlePortofolioUpdate'
-      v-b-modal.modalPortofolioUpdate
-    />
-
-    <b-modal id="modalPortofolioUpdate" hide-footer title="Update Portofolio">
-        <FormUpdatePortofolio/>
-    </b-modal>
 
   </div>
 

@@ -50,13 +50,15 @@
 
           <b-col>
             <h3>Profitability Information</h3>
-            <div class="ProfitabilityDiv">
-              <h4>Total Return (€): <strong>{{TotalReturnEuros}}</strong> </h4>
-              <h4>Total Rate of Return (%): <strong>{{TotalReturnPercentage}}</strong></h4>
-              <h4>Time Weighted Return: <strong>{{TimeWeightedReturn}}</strong></h4>
-              <h4>Time Weighted Rate of Return: <strong>{{TimeWeightedRateReturn}}</strong></h4>
-              <h4>Money Weighted Rate of Return: <strong>{{MoneyWeightedRateReturn}}</strong> </h4>
-            </div>
+          <!-- Table of total diviend per company -->
+            <BaseTableStatic
+            id="ProfitabilityTable"
+            class='Table' 
+            v-if='!isLoading' 
+            :MyTableItems='ProfitabilityTableData' 
+            :MyTableFields='ProfitabilityTableFields'
+          />
+
           </b-col>
         </b-row>
       </b-tab>
@@ -81,7 +83,8 @@
             <h3>Total dividends received by company</h3>
           <!-- Table of total diviend per company -->
             <BaseTable
-            id="DividendTable" 
+            id="DividendTable"
+            class='Table'  
             v-if='!isLoading' 
             :MyTableItems='dividendCompany' 
             :MyTableFields='dividendCompanyFields'
@@ -96,34 +99,9 @@
       <!----------------------------------------------------------------------------------->
       <b-tab title="Benchmarks">
         <b-row>
-          <b-col>
-            <b-row>
-              <div class="SliderRange">
-                <FormBenchmarks/>
-              </div>
-            </b-row>
-
-            <b-row>
-              <BaseChartLine
-                id='ChartLines'
-                v-if='!isLoading'
-                :MyChartTitle='BenchmarkChartTitle' 
-                :lineChartData='BenchmarkChartData' 
-                :yaxisTitle='Benchmark_yaxisTitle'
-                :xaxisTitle='Benchmark_xaxisTitle' 
-              />
-            </b-row>
-          </b-col>
-
-          <b-col>
-              <h3>Compound annual growht rate</h3>
-              <h4>Portofolio CAGR: <strong> </strong></h4>
-              <h4>SP500 CAGR: <strong> </strong></h4>
-              <h4>Euro Stoxx50 CAGR: <strong> </strong></h4>
-              <h4>FTSE100 CAGR: <strong> </strong></h4>
-              <h4>IBEX35 TR CAGR: <strong> </strong></h4>              
-
-          </b-col>
+          <div class="SliderRange">
+            <FormBenchmarks/>
+          </div>
         </b-row>
       </b-tab>
     </b-tabs>
@@ -141,8 +119,8 @@ import axios from 'axios';
 // import components
 import BaseCard from '@/components/BaseCard.vue' //@ redirects to src folder
 import BaseChartBarLine from '@/components/BaseChartBarLine.vue'
-import BaseChartBar from '@/components/BaseChartBar.vue' 
-import BaseChartLine from '@/components/BaseChartLine.vue'
+import BaseChartBar from '@/components/BaseChartBar.vue'
+import BaseTableStatic from '@/components/BaseTableStatic.vue' 
 import BaseTable from '@/components/BaseTable.vue'
 import FormBenchmarks from '@/components/FormBenchmarks.vue'
 
@@ -152,9 +130,9 @@ export default {
   components: {
     BaseCard,
     BaseTable,
+    BaseTableStatic,
     BaseChartBarLine,
     BaseChartBar,
-    BaseChartLine,
     FormBenchmarks,
   },
   data(){
@@ -182,12 +160,12 @@ export default {
       Historic_xaxisTitle:'Year',
       Historic_yaxisTitle:'Euros (€)',
 
-      // data for the profitability section
-      TotalReturnEuros:'',
-      TotalReturnPercentage:'',
-      TimeWeightedReturn: '',
-      TimeWeightedRateReturn:'',
-      MoneyWeightedRateReturn:'',
+      // data for the profitability table
+      ProfitabilityTableData:[],
+      ProfitabilityTableFields:[
+        {key:'ProfitabilityRatio', sortable: false, label:'Profitability Ratio'},
+        {key:'Value', sortable: false, label:'Value'}
+      ],
 
       // --------------------------- HISTORIC DIVIDEND DATA  ------------------------------------ //
       // data for the bar chart
@@ -204,11 +182,9 @@ export default {
       ],
 
       // --------------------------- BENCHMARK DATA ----------------------------------------------- //
-      // data for the bar/line chart
-      BenchmarkChartData:[],
-      BenchmarkChartTitle:'Benchmark against main Indices',
-      Benchmark_xaxisTitle:'Year',
-      Benchmark_yaxisTitle:'Euros (€)',
+
+      // all benchmark data and layout is found int he the FormBenchmarks.vue
+
 
       //to prevent that the chart and the table are rendered before receiving the data
       isLoading: false, 
@@ -236,14 +212,13 @@ export default {
         this.YieldOnCostValue = data[2]
 
         // Profitability data = data[3] from axios call
-        this.TotalReturnEuros = data[3][0]
-        this.TotalReturnPercentage = data[3][1]
-        this.TimeWeightedReturn = data[3][2],
-        this.TimeWeightedRateReturn = data[3][3],
-        this.MoneyWeightedRateReturn = data[3][4],
-
-        // Benchmark data
-        this.BenchmarkChartData = data[3][5],
+        this.ProfitabilityTableData=[
+          {'ProfitabilityRatio':'Total Return (€)', 'Value': data[3][0]},
+          {'ProfitabilityRatio':'Total Return (%)', 'Value': data[3][1]},
+          {'ProfitabilityRatio':'Time Weighted Return', 'Value': data[3][2]},
+          {'ProfitabilityRatio':'Time Weighted Rate of Return', 'Value': data[3][3]},
+          {'ProfitabilityRatio':'Money Weighted Rate of Return', 'Value': data[3][4]},
+        ]
 
         this.isLoading = false
       } catch(error){console.error(error)}
@@ -268,7 +243,7 @@ export default {
   display:flex;
 }
 
-#DividendTable{
+.Table{
   width:75%;
   margin-left:auto;
   margin-right: auto;
