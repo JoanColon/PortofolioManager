@@ -34,7 +34,7 @@
                         type="range"
                         v-model="SliderRange"  
                         min="1" 
-                        max="10"
+                        max="25"
                     ></b-form-input>
                 </div>
 
@@ -102,8 +102,7 @@ export default {
             BenchmarkTableFields:[
                 {key:'BenchmarkIndex', sortable: false, label:'Benchmark Index'},
                 {key:'BenchmarkCAGR', sortable: false, label:'Benchmark CAGR (%)'},
-                {key:'PortofolioValue', sortable: false, label:'Portofolio Value (€)'},
-                {key:'AnnualDividend', sortable: false, label:'Dividend (€/year)'}
+                {key:'Value', sortable: false, label:'Value (€)'},
             ],
 
             //to prevent that the chart and the table are rendered before receiving the data
@@ -118,7 +117,8 @@ export default {
             let postData = [this.SliderRange, this.selected]
             let {data} = await axios.post(path, postData)
             let chartData = data[0]
-            
+            let keyData = data[1]
+                   
             this.BenchmarkChartData = []
             for (let i = 0; i < chartData.length; i++) {
                 let keyObject = Object.keys(chartData[i])
@@ -133,6 +133,18 @@ export default {
 
                 this.BenchmarkChartData.push(traceData)
             }
+
+                this.BenchmarkTableData = []
+                for (let i = 0; i < keyData.length; i++){
+                    let keyObject = Object.keys(keyData[i])
+                    let newKeyData ={
+                        'BenchmarkIndex': keyObject[0],
+                        'BenchmarkCAGR': keyData[i][keyObject[0]]['CAGR'],
+                        'Value': keyData[i][keyObject[0]]['final Value'],
+                    }
+
+                    this.BenchmarkTableData.push(newKeyData)
+                }
             
             this.isLoading = false
         },
@@ -146,6 +158,7 @@ export default {
                 let {data} = await axios.post(path, postData)
 
                 let chartData = data[0]
+                let keyData = data[1]
                 
                 this.BenchmarkChartData = []
                 for (let i = 0; i < chartData.length; i++) {
@@ -160,6 +173,19 @@ export default {
                     }
 
                     this.BenchmarkChartData.push(traceData)
+                }
+
+                this.BenchmarkTableData = []
+                for (let i = 0; i < keyData.length; i++){
+                    let keyObject = Object.keys(keyData[i])
+                    console.log(keyObject)
+                    let newKeyData ={
+                        'BenchmarkIndex': keyObject[0],
+                        'BenchmarkCAGR': keyData[i][keyObject[0]]['CAGR'],
+                        'Value': keyData[i][keyObject[0]]['final Value'],
+                    }
+
+                    this.BenchmarkTableData.push(newKeyData)
                 }
                 
                 this.isLoading = false

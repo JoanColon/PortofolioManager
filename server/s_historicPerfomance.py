@@ -146,93 +146,56 @@ def getProfitabilityInformation(HistoricPortofolio_table):
 
     return data
 
-def getBenchmarkInformation(postData, BenchmarkIndex_table):
+def getBenchmarkInformation(postData, Benchmark_table):
     years = int(postData[0])
     SelectedBenchmarks = postData[1]
 
-    # create the list of benchmark data to return based on user seleciton, Benchmark Index to show and number of years
+    # get data from only the necessary number of years (e.g., if years = 5, get the benchmark data from the last 5 years)
+    Benchmark_table = Benchmark_table[-years:]
+
+    # # create the list of benchmark data to return based on user seleciton, Benchmark Index to show and number of years
+    yearList = [benchmark.year for benchmark in Benchmark_table]
+    yearsCAGR = len(yearList)
+    lastYear = yearList[-1] + 1
+    yearList.append(lastYear)
+
+    dataList = [json.loads(benchmark.DictFinancialData) for benchmark in Benchmark_table]
+
+    sp500 = [TWRvalue['S&P500'] for TWRvalue in dataList]
+    stoxx50 = [TWRvalue['STOXX50'] for TWRvalue in dataList]
+    ftse100 = [TWRvalue['FTSE100'] for TWRvalue in dataList]
+    Ibex35TR = [TWRvalue['IBEX35'] for TWRvalue in dataList]
+    Portofolio = [TWRvalue['Portofolio'] for TWRvalue in dataList]
+
+    OrganizedBenchmarks = {
+        'sp500': sp500,
+        'stoxx50': stoxx50,
+        'ftse100': ftse100,
+        'Ibex35TR': Ibex35TR,
+        'Portofolio': Portofolio
+    }
+
+
+    # get chart Data for selected ticker
     initialInvestment = 10000.0
     FinalChartData = []
-    FinalDividendList= []
-    for row in BenchmarkIndex_table:
-        for data in SelectedBenchmarks:
-            if data == row.IndexTicker:
-                # upload string data from ddbb and transforms it into python dict
-                BenchmarkDict = json.loads(row.DictFinancialData)
+    BenchmarkKeyData = []
+    for benchmark in SelectedBenchmarks:
+        benchmarkData = OrganizedBenchmarks[benchmark]
+        benchmarkDataList = list(np.cumprod(benchmarkData) * initialInvestment)
+        benchmarkDataList.insert(0, initialInvestment)
 
-                #  get year list based on years selected in the range slider (years variable)
-                yearList = [int(year) for year, info in BenchmarkDict.items()]
-                yearList = yearList[-years:]
-                InitialYear = yearList[0] - 1
-                yearList.insert(0, InitialYear)
+        finalValue = benchmarkDataList[-1]
+        CAGR_value = (finalValue/initialInvestment)**(1/yearsCAGR) - 1
+        finalValueFormat = "{:,.1f}€".format(finalValue)
+        CAGR_valueFormat = "{:.1%}".format(CAGR_value)
 
-                # get list of yearly investment value according years selected in the range slider (years variable)
-                cagrList=[float(info['cagr']) for year, info in BenchmarkDict.items()]
-                cagrList = cagrList[-years:]
-                cagrList = np.cumprod(cagrList)
-                IndexPerfomanceList = list(initialInvestment * cagrList)
-                IndexPerfomanceList.insert(0, initialInvestment)
-
-                # get chart Data for selected ticker
-                ChartData = {row.IndexTicker:{'xAxis':yearList, 'yAxis':IndexPerfomanceList}}
-                FinalChartData.append(ChartData)
-
-                # get total dividends during the current year 
-                dividendList = [float(info['dividend']) for year, info in BenchmarkDict.items()]
-                dividendAmount = dividendList[-1] * IndexPerfomanceList[-1] 
-                dividendDict = {row.IndexTicker:dividendAmount}
-                FinalDividendList.append(dividendDict)
-    
-    data = [FinalChartData, FinalDividendList]
+        ChartData = {benchmark:{'xAxis':yearList, 'yAxis':benchmarkDataList}}
+        keyData = {benchmark:{'final Value': finalValueFormat, 'CAGR': CAGR_valueFormat}}
+        FinalChartData.append(ChartData)
+        BenchmarkKeyData.append(keyData)
+          
+    data = [FinalChartData, BenchmarkKeyData]
    
     return data
 
-def getAnnualReturnAndDividendRate(historicData):
-
-    # ----------------- PortofolioHistoricData. To Calculate Annual Rate of Return -----------------------------------
-    PortofolioHistoricData = historicData[0]
-    
-    currentYear = PortofolioHistoricData[-1]
-    previousYear = PortofolioHistoricData[-2]
-
-    FinalValue = currentYear.PortofolioVaue
-    InitialValue = previousYear.PortofolioVaue
-    NetDeposit = currentYear.NetDeposit
-    year = currentYear.Year
-
-    # TWR formula: https://www.investopedia.com/terms/t/time-weightedror.asp, Net deposit at the beginning of the yera
-    yearTWR = ((FinalValue - (InitialValue + NetDeposit))/(InitialValue + NetDeposit)) + 1
-
-    # ---------------------------------- DividendHistoricData. To Calculate % dividend ------------------------------------
-    DividendHistoricData = historicData[1]
-
-    # prepre the dataframe from sqlite imported data
-    Date=[data.Date for data in DividendHistoricData]
-    MyTicker=[data.MyTicker for data in DividendHistoricData]
-    Currency=[data.Currency for data in DividendHistoricData]
-    Amount=[data.Amount for data in DividendHistoricData]
-    AmountEuro=[data.AmountEuro for data in DividendHistoricData]
-    HistoricDividentDict={
-        'Date':Date,
-        'MyTicker':MyTicker,
-        'Currency': Currency,
-        'Amount':Amount,
-        'AmountEuro':AmountEuro
-    }
-
-    df=pd.DataFrame.from_dict(HistoricDividentDict)
-
-    # Dataframe with dividends by year
-    dfDate=df.loc[:,['Date','AmountEuro']]
-    dfDate['Date']=pd.to_datetime(dfDate['Date'])
-    dfDate=dfDate.groupby(dfDate.Date.dt.year).sum()
-    dfDate=dfDate.reset_index()
-
-    # use @ in query to use the variable year defined previously (in Annual Rate of Return)
-    AnnualDividend = dfDate.query('Date == @year')['AmountEuro']
-
-    dividendRate = AnnualDividend/FinalValue
-
-    data = [yearTWR, dividendRate ]
-
-    return data

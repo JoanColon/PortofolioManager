@@ -10,8 +10,7 @@ import json
 # python scripts imports
 from s_portofolioUpdate import getUpdatedPortofolio, getPortofolioPieChart
 from s_historicPerfomance import getHistoricPortofolioChart, getHistoricDividends, getProfitabilityInformation, getBenchmarkInformation 
-from s_newOrder import getNewOrderCurrencyRate
-from s_dataManagement import ImportAnualDividends, getAnnualReturnAndDividendRate
+from s_dataManagement import getNewOrderCurrencyRate, ImportAnualDividends, getAnnualBenchmark
 
 # ---------------------------------------------------------------------------------
 # --------------------------------- CONFIGURATION ---------------------------------
@@ -104,10 +103,8 @@ class HistoricDividends(db.Model):
 class Benchmark(db.Model):
     __tablename__='benchmark'
     id = db.Column(db.Integer, primary_key=True)
-    IndexName = db.Column(db.String(100), unique=True, nullable=False)
-    IndexTicker = db.Column(db.String(10), unique=True, nullable=False)
+    year = db.Column(db.Integer, unique=True, nullable=False)
     DictFinancialData = db.Column(db.Text, unique=False, nullable=False)
-
     
 # only run db.create_all() if ddbb is not yet created or need to create a new table
 # db.create_all()
@@ -207,9 +204,9 @@ def getHistoricBenchmark():
     postData=request.get_json(force=True)
 
     # query ddbb table to get all benchmark data
-    BenchmarkIndex_table = Benchmark.query.all()
+    Benchmark_table = Benchmark.query.all()
 
-    BenchamarkData = getBenchmarkInformation(postData, BenchmarkIndex_table)
+    BenchamarkData = getBenchmarkInformation(postData, Benchmark_table)
    
     return jsonify(BenchamarkData)
 
@@ -377,32 +374,18 @@ def addAnualDividends():
 # Add NEW ANNUAL INDEX BENCHMARKS. Get data from FormAddBenchmarks.vue and adds it to the ddbb (table Benchmark)
 @app.route('/addAnnualBenchmark', methods=['GET', 'POST'])
 def addAnnualBenchmark():
-    postData=request.get_json(force=True)
+    year=request.get_json(force=True)
+    HistoricPortofolio_table = HistoricPortofolio.query.all()
 
-    Benchmark_table = Benchmark.query.all()
+    AnnualBenchmarks = getAnnualBenchmark(year, HistoricPortofolio_table)
 
-    for row in Benchmark_table:
-        for data in postData['FinancialData']:
-            if data == row.IndexTicker:
-                year = postData['year'],
-                FinancialData={
-                    'cagr':postData['FinancialData'][data]['cagr'],
-                    'dividend':postData['FinancialData'][data]['dividend']
-                }
+    newBenchmark = Benchmark(
+        year =year,
+        DictFinancialData = json.dumps(AnnualBenchmarks)
+    )
 
-                try:
-                # json.loads, get the text from the ddbb and parse it to a python dictionary
-                    CurrentDict = json.loads(row.DictFinancialData)
-                except:
-                # if empty, gives an error, thus, we create and empty dict to append the first data
-                    CurrentDict={}
-                
-                # year is a tuple, not a string, this is why we need year[0] and not only year
-                CurrentDict[year[0]] = FinancialData
-
-                # json dumps, transforms the dictionary to a text before committing to the ddbbb
-                row.DictFinancialData = json.dumps(CurrentDict)
-                db.session.commit()
+    db.session.add(newBenchmark)
+    db.session.commit()
 
     return 'Benchmarks added to the database!'
 
@@ -410,14 +393,6 @@ def addAnnualBenchmark():
 # ----------------------------------- TEST route ------------------------------------
 @app.route('/test', methods=['GET', 'POST'])
 def test():
-
-    PortofolioHistoricData = HistoricPortofolio.query.all()
-    DividendHistoricData = HistoricDividends.query.all()
-    historicData = [PortofolioHistoricData, DividendHistoricData]
-
-    data = getAnnualReturnAndDividendRate(historicData)
-
-    print(data)
 
     return jsonify('hello')
 
