@@ -71,6 +71,7 @@
     />
 
     <b-modal id="modalUpdateAnnualNAV" hide-footer title="Update Annual NAV">
+      <FormAddAnnualNAV/>
     </b-modal>    
 
     <!-- Import Annual dividends -->
@@ -108,6 +109,7 @@ import FormNewCompany from '@/components/FormNewCompany.vue' //@ redirects to sr
 import FormNewOrder from '@/components/FormNewOrder.vue'
 import FormUpdatePortofolio from '@/components/FormUpdatePortofolio.vue'
 
+import FormAddAnnualNAV from '@/components/FormAddAnnualNAV.vue'
 import FormImportAnualDividends from '@/components/FormImportAnualDividends.vue'
 import FormAddBenchmarks from '@/components/FormAddBenchmarks.vue'
 
@@ -120,6 +122,7 @@ export default {
     FormNewCompany,
     FormNewOrder,
     FormUpdatePortofolio,
+    FormAddAnnualNAV,
     FormImportAnualDividends,
     FormAddBenchmarks,
 

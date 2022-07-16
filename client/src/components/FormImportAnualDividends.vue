@@ -3,14 +3,15 @@
 <!------------------------------------------------------------------------>
 <template>
 <div>
+    <p>Get exchange rate value from IB annual statement</p>
     <b-form inline id='InputAnualDividendForm' @submit="onSubmit">
         <div class="group">
             <b-form-file 
                 v-model="file" 
                 class="mt-3" plain
                 type="file" 
-                @change="handleFileUpload( $event )">
-            </b-form-file>
+                @change="handleFileUpload( $event )"
+            ></b-form-file>
         </div>
 
         <div class="group">
@@ -20,8 +21,7 @@
                 class="form_input"
                 v-model='Separator'
                 placeholder='Separator type'
-            >
-            </b-form-input>
+            ></b-form-input>
         </div>
 
         <div>
@@ -30,8 +30,8 @@
                 <b-form-input 
                     :id="Currency" 
                     class="form_input CurrencyList"
-                    placeholder= "Enter exchange rate">
-                </b-form-input>
+                    placeholder= "Enter exchange rate"
+                ></b-form-input>
             </div>
         </div>
 

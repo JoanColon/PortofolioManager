@@ -9,9 +9,9 @@ import json
 
 # python scripts imports
 from s_portofolioUpdate import getUpdatedPortofolio, getPortofolioPieChart
-from s_historicPerfomance import getHistoricPortofolioChart, getHistoricDividends, getProfitabilityInformation, getBenchmarkInformation
+from s_historicPerfomance import getHistoricPortofolioChart, getHistoricDividends, getProfitabilityInformation, getBenchmarkInformation 
 from s_newOrder import getNewOrderCurrencyRate
-from s_dataManagement import ImportAnualDividends
+from s_dataManagement import ImportAnualDividends, getAnnualReturnAndDividendRate
 
 # ---------------------------------------------------------------------------------
 # --------------------------------- CONFIGURATION ---------------------------------
@@ -323,6 +323,33 @@ def updateportofolio():
 
     return jsonify('portofolio updated')
 
+# add ANNUAL NAV. Get data from FormAddAnnualNAV.vue and adds it to the ddbb (HistoricPortofolio table)
+@app.route('/AddAnnualNAV', methods=['GET', 'POST'])
+def addAnnualNAV():
+    # get data from post request (vue sends data)
+    postData=request.get_json(force=True)
+
+    Year = int(postData['Year'])
+    Deposit = float(postData['Deposit'])
+    Withdraw = float(postData['Withdraw'])
+    PortofolioValue = float(postData['PortofolioValue'])
+    NetDeposit = Deposit - Withdraw
+
+    # Create new ddbb entry to store in HistoricPortofolio table
+    AnnualNAV=HistoricPortofolio(
+        Year = Year, 
+        Deposit = Deposit, 
+        Withdraw = Withdraw,
+        NetDeposit = NetDeposit,
+        PortofolioVaue = PortofolioValue
+    )
+
+    # save new order into ddbb
+    db.session.add(AnnualNAV)
+    db.session.commit()
+
+    return jsonify('hola')
+
 # Add NEW YEAR OF DIVIDENDS. Get data from FormImportAnualDividends.vue and adds it to the ddbb (table HistoricDividedns)
 @app.route('/addAnualDividends', methods=['GET', 'POST'])
 def addAnualDividends():
@@ -380,14 +407,17 @@ def addAnnualBenchmark():
     return 'Benchmarks added to the database!'
 
 
-
-
 # ----------------------------------- TEST route ------------------------------------
 @app.route('/test', methods=['GET', 'POST'])
 def test():
 
+    PortofolioHistoricData = HistoricPortofolio.query.all()
+    DividendHistoricData = HistoricDividends.query.all()
+    historicData = [PortofolioHistoricData, DividendHistoricData]
 
-    print('hello from test')
+    data = getAnnualReturnAndDividendRate(historicData)
+
+    print(data)
 
     return jsonify('hello')
 

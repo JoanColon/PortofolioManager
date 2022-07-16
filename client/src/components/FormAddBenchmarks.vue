@@ -3,8 +3,9 @@
 <!------------------------------------------------------------------------>
 <template>
 <div>
-  <b-form inline id="NewOrder" @submit="onSubmit">
-    <p>Add the Annual Rate of return as numeric &#40;e.g., RoR of 10%, add 1.1&#41;, apply the same approach for the dividend rate</p>
+  <b-form inline id="AddBenchmark" @submit="onSubmit">
+    <p>- Add the Annual Rate of return as numeric &#40;e.g., RoR of 10%, add 1.1&#41;, apply the same approach for the dividend rate</p>
+    <p>- First complete "Update Annual NAV" and "Import Annual Dividends" forms</p>
     <!-- year -->
     <div class="group">
         <label for="year"  class="sr-only">Year:</label>
