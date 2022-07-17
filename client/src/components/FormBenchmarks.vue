@@ -101,7 +101,7 @@ export default {
             BenchmarkTableData:[],
             BenchmarkTableFields:[
                 {key:'BenchmarkIndex', sortable: false, label:'Benchmark Index'},
-                {key:'BenchmarkCAGR', sortable: false, label:'Benchmark CAGR (%)'},
+                {key:'BenchmarkCAGR', sortable: false, label:'CAGR (%)'},
                 {key:'Value', sortable: false, label:'Value (€)'},
             ],
 
