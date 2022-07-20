@@ -54,7 +54,9 @@
       v-b-modal.modalUpdateDividend
     />
 
-    <b-modal id="modalUpdateDividend" hide-footer title="Update Dividend"></b-modal>
+    <b-modal id="modalUpdateDividend" hide-footer title="Update Dividend">
+      <FormUpdateDividends/>
+    </b-modal>
 
 
   </div>
@@ -106,8 +108,11 @@
 <script>
 // import components
 import FormNewCompany from '@/components/FormNewCompany.vue' //@ redirects to src folder
-import FormNewOrder from '@/components/FormNewOrder.vue'
+
 import FormUpdatePortofolio from '@/components/FormUpdatePortofolio.vue'
+import FormNewOrder from '@/components/FormNewOrder.vue'
+import FormUpdateDividends from '@/components/FormUpdateDividends.vue'
+
 
 import FormAddAnnualNAV from '@/components/FormAddAnnualNAV.vue'
 import FormImportAnualDividends from '@/components/FormImportAnualDividends.vue'
@@ -122,6 +127,7 @@ export default {
     FormNewCompany,
     FormNewOrder,
     FormUpdatePortofolio,
+    FormUpdateDividends,
     FormAddAnnualNAV,
     FormImportAnualDividends,
     FormAddBenchmarks,

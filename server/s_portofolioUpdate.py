@@ -139,6 +139,98 @@ def getUpdatedPortofolio(data):
     return portofolio_dict
 
 
+def getUpdateDividends(CompanyInfo_table):
+
+    tickerList = [data.SearchTicker for data in CompanyInfo_table]
+    CountryList = [data.Country for data in CompanyInfo_table]
+
+    MyDict = {
+        'Ticker': tickerList,
+        'Country': CountryList
+    }
+
+    df = pd.DataFrame(MyDict)
+
+    ## -------------------- add ['Current price'] column (call to Rapid Api) ----------------------------------
+    def CountryMap(row):
+        if row == 'Spain':
+            return 'ES'
+        elif  row == 'USA':
+            return 'US'
+        elif row == 'Germany':
+            return 'DE'
+        elif row == 'France':
+            return 'FR'
+        elif row == 'Netherlands':
+            return 'AU'
+        elif  row == 'United Kingdom':
+            return 'UK'
+        else:
+            return 'Emerging Markets'
+
+    df['CountryMap']=df['Country'].apply(lambda row: CountryMap(row)) ## populate ['CountryMap'] column based on ['Country'] column applying CountryMap(row) function
+
+    tickersES = df.loc[df['CountryMap'] == 'ES']
+    listES = ",".join(tickersES['Ticker'].to_list())
+
+    tickersUS = df.loc[df['CountryMap'] == 'US']
+    listUS = ",".join(tickersUS['Ticker'].to_list())
+
+    tickersDE = df.loc[df['CountryMap'] == 'DE']
+    listDE = ",".join(tickersDE['Ticker'].to_list())
+
+    tickersFR = df.loc[df['CountryMap'] == 'FR']
+    listFR = ",".join(tickersFR['Ticker'].to_list())
+
+    tickersAU = df.loc[df['CountryMap'] == 'AU']
+    listAU = ",".join(tickersAU['Ticker'].to_list())
+
+    tickersUK = df.loc[df['CountryMap'] == 'UK']
+    listUK = ",".join(tickersUK['Ticker'].to_list())
+
+    tickersEM = df.loc[df['CountryMap'] == 'EM']
+    listEM = tickersEM['Ticker'].to_list()
+
+
+    TickersCountryList = [listES, listUS, listDE, listFR, listAU, listUK]
+ 
+    dividendRateList = []
+    for tickers in TickersCountryList:
+        url = "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes"
+
+        querystring = {"region":"US","symbols":tickers}
+
+        headers = {
+            "X-RapidAPI-Key": "f160d6aebamshae49215262502edp110b27jsn6f09ea528fcb",
+            "X-RapidAPI-Host": "apidojo-yahoo-finance-v1.p.rapidapi.com"
+        }
+
+        response = requests.request("GET", url, headers=headers, params=querystring)
+
+        data = json.loads(response.text)
+
+        companiesDict = data['quoteResponse']['result']
+
+        DividendRateCountryList = []
+        for company in companiesDict:
+            try:
+                data = {
+                    'ticker': company['symbol'].split(".",1)[0],
+                    'dividendRate': company['dividendRate']
+                }
+            except:
+                data = {
+                    'ticker': company['symbol'].split(".",1)[0],
+                    'dividendRate': 0
+                }
+               
+            DividendRateCountryList.append(data)
+        
+        dividendRateList.append(DividendRateCountryList)
+    
+    return dividendRateList
+
+
 def getPortofolioPieChart(data, radioSelection):
 
     PortofolioList=[]
@@ -166,3 +258,4 @@ def getPortofolioPieChart(data, radioSelection):
     chartData=[LabelList, MarketValueList, DividendList]
 
     return chartData
+

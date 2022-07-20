@@ -1,3 +1,4 @@
+from cmath import nan
 from re import X
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -8,7 +9,7 @@ import numpy as np
 import json
 
 # python scripts imports
-from s_portofolioUpdate import getUpdatedPortofolio, getPortofolioPieChart
+from s_portofolioUpdate import getUpdatedPortofolio, getUpdateDividends, getPortofolioPieChart
 from s_historicPerfomance import getHistoricPortofolioChart, getHistoricDividends, getProfitabilityInformation, getBenchmarkInformation 
 from s_dataManagement import getNewOrderCurrencyRate, ImportAnualDividends, getAnnualBenchmark
 
@@ -48,6 +49,8 @@ class Company_Dividend(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     MyTicker = db.Column(db.String(10), unique=True, nullable=False)
+    SearchDividend = db.Column(db.Float, unique=False, nullable=False)
+    MyDividend = db.Column(db.Float, unique=False, nullable=False)
     CurrentDividend = db.Column(db.Float, unique=False, nullable=False)
 
 class Order(db.Model):
@@ -283,7 +286,7 @@ def getTickers():
 
     return jsonify(tickerList)
 
-# UPDATE CURRENT PORTOFOLIO
+# UPDATE CURRENT PORTOFOLIO. data from Yahoo Finance API (rapidApi)
 @app.route('/updatePortoflio', methods=['GET', 'POST'])
 def updateportofolio():
 
@@ -319,6 +322,51 @@ def updateportofolio():
         db.session.commit()
 
     return jsonify('portofolio updated')
+
+# UPDATE DIVIDENDS in tickers of CURRENT PORTOFOLIO. data from Yahoo Finance API (rapidApi)
+@app.route('/updateDividends', methods=['GET', 'POST'])
+def updateDividends():
+
+    # get company info table (to get the tickers to loop)
+    CompanyInfo_table = Company_Info.query.all()
+
+    # run getUpdateDividend function which returs the Yahoo finance current dividend
+    dividendRateList = getUpdateDividends(CompanyInfo_table)
+
+    # update dividends in Company_Dividend table (field SearchDividend)
+    for dividendList in dividendRateList:
+        for dividend in dividendList:
+            company = Company_Dividend.query.filter_by(MyTicker = dividend['ticker']).first()
+            company.SearchDividend = dividend['dividendRate']
+            db.session.commit()
+
+    # get updated Company_Dividend table
+    CompanyDividends = Company_Dividend.query.all()
+
+    # This part is to update the CurrentDividend column in the sqlite ddbb.
+    # Not all dividends from Yahoo Finance are correct, for the ones that are incorrect, in the column MyDividend the correct dividend is added
+    # The code looks for non negative values in MyDividend, and select the appropiate value to update the CurrentDividend column which is the one finally used.
+    MyTicker = [data.MyTicker for data in CompanyDividends]
+    SearchDividend = [data.SearchDividend for data in CompanyDividends]
+    MyDividend = [data.MyDividend for data in CompanyDividends]
+    DividendDict = {
+        'MyTicker': MyTicker,
+        'SearchDividend': SearchDividend,
+        'MyDividend': MyDividend
+    }
+
+    df = pd.DataFrame.from_dict(DividendDict)
+
+    df['CurrentDividend'] = np.where(df['MyDividend'] < 0, df['SearchDividend'], df['MyDividend'])
+
+    dividendDict = df.to_dict('records')
+
+    for dividend in dividendDict:
+        company = Company_Dividend.query.filter_by(MyTicker = dividend['MyTicker']).first()
+        company.CurrentDividend = dividend['CurrentDividend']
+        db.session.commit()
+
+    return 'Dividends updated'
 
 # add ANNUAL NAV. Get data from FormAddAnnualNAV.vue and adds it to the ddbb (HistoricPortofolio table)
 @app.route('/AddAnnualNAV', methods=['GET', 'POST'])
