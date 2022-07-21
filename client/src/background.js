@@ -11,6 +11,7 @@ protocol.registerSchemesAsPrivileged([
 ])
 
 async function createWindow() {
+
   // Create the browser window.
   const win = new BrowserWindow({
     width: 1500,
@@ -27,12 +28,15 @@ async function createWindow() {
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
+    const path = require('path');
+    console.log(path)
     if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
     createProtocol('app')
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
   }
+
 }
 
 // Quit when all windows are closed.
